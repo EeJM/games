@@ -53,20 +53,20 @@ public class Cointoss extends JFrame {
 
         layout.setHorizontalGroup(baseX);
 
+        GroupLayout.ParallelGroup botRowY = layout.createParallelGroup();
+        botRowY.addComponent(flipText);
+        botRowY.addComponent(coinSide);
+
         GroupLayout.ParallelGroup topRowY = layout.createParallelGroup(BASELINE);
-        topRowY.addComponent(flipText);
-        topRowY.addComponent(coinSide);
+        topRowY.addComponent(betText);
+        topRowY.addComponent(betAmount);
+        topRowY.addComponent(coinList);
+        topRowY.addComponent(playButton);
+        topRowY.addComponent(allIn);
 
         GroupLayout.ParallelGroup midRowY = layout.createParallelGroup(BASELINE);
-        midRowY.addComponent(betText);
-        midRowY.addComponent(betAmount);
-        midRowY.addComponent(coinList);
-        midRowY.addComponent(playButton);
-        midRowY.addComponent(allIn);
-
-        GroupLayout.ParallelGroup botRowY = layout.createParallelGroup(BASELINE);
-        botRowY.addComponent(fundsText);
-        botRowY.addComponent(moneyLeft);
+        midRowY.addComponent(fundsText);
+        midRowY.addComponent(moneyLeft);
 
         GroupLayout.SequentialGroup baseY = layout.createSequentialGroup();
         baseY.addGroup(topRowY);
