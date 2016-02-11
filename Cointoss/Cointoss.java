@@ -1,5 +1,9 @@
 package Cointoss;
 //By: Eero, Niko & Thien
+//weed
+//yolololololl
+//yoyoyyoyoyoyoyo
+//kylylykyylykykyl
 import java.awt.event.*;
 import javax.swing.*;
 import java.util.Random;
