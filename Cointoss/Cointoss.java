@@ -1,5 +1,5 @@
 package Cointoss;
-
+//By: Eero, Niko & Thien
 import java.awt.event.*;
 import javax.swing.*;
 import java.util.Random;
