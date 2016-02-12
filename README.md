@@ -1,3 +1,3 @@
 # games
-Games created at school\n
+Games created at school
 CoinToss is the first game!
