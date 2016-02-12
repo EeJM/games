@@ -97,9 +97,9 @@ public class Cointoss extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 int intMoneyLeft = Integer.parseInt(moneyLeft.getText());
                 int intBetAmount = Integer.parseInt(betAmount.getText());
-
-                if (intBetAmount <= intMoneyLeft) {
-
+                
+                if (intBetAmount <= intMoneyLeft && intBetAmount>0) {
+                    
                     int updatedMoney = intMoneyLeft - intBetAmount;
                     String stringUpdatedMoney = Integer.toString(updatedMoney);
 
@@ -121,6 +121,14 @@ public class Cointoss extends JFrame {
                         String title = "Loser!";
                         JOptionPane.showMessageDialog(playButton, message, title, JOptionPane.INFORMATION_MESSAGE);
                     }
+                }
+                else if (intMoneyLeft==0) {
+                    String message="You're too poor to play, restart the program to play again";
+                    JOptionPane.showMessageDialog(playButton, message, "Too poor", JOptionPane.INFORMATION_MESSAGE);
+                }
+                else if (intBetAmount==0){
+                    String message="You gotta at least bet something!";
+                    JOptionPane.showMessageDialog(playButton, message, "Bet more", JOptionPane.INFORMATION_MESSAGE);
                 }
                 else {
                     String message="Don't bet your house on it!";
