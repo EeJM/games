@@ -89,6 +89,7 @@ public class Cointoss extends JFrame {
                 if (allIn.isSelected()) {
                     betAmount.setText(moneyLeft.getText());
                 }
+                //This disables or enables the editing depnding if the button is selected or not
                 betAmount.setEditable(!allIn.isSelected());
             }
         });
@@ -98,8 +99,10 @@ public class Cointoss extends JFrame {
                 int intMoneyLeft = Integer.parseInt(moneyLeft.getText());
                 int intBetAmount = Integer.parseInt(betAmount.getText());
                 
+                //This happens if the bet is fine to do
                 if (intBetAmount <= intMoneyLeft && intBetAmount>0) {
                     
+                    //Created some temporary variables here to subtract from your available money
                     int updatedMoney = intMoneyLeft - intBetAmount;
                     String stringUpdatedMoney = Integer.toString(updatedMoney);
 
@@ -122,14 +125,17 @@ public class Cointoss extends JFrame {
                         JOptionPane.showMessageDialog(playButton, message, title, JOptionPane.INFORMATION_MESSAGE);
                     }
                 }
+                //This happens if you don't have any money left and you try to play
                 else if (intMoneyLeft==0) {
                     String message="You're too poor to play, restart the program to play again";
                     JOptionPane.showMessageDialog(playButton, message, "Too poor", JOptionPane.INFORMATION_MESSAGE);
                 }
+                //This happens if your trying to bet 0
                 else if (intBetAmount==0){
                     String message="You gotta at least bet something!";
                     JOptionPane.showMessageDialog(playButton, message, "Bet more", JOptionPane.INFORMATION_MESSAGE);
                 }
+                //This happens if you bet more than you have
                 else {
                     String message="Don't bet your house on it!";
                     JOptionPane.showMessageDialog(playButton, message, "Bank account error...", JOptionPane.INFORMATION_MESSAGE);
@@ -138,11 +144,12 @@ public class Cointoss extends JFrame {
                 betAmount.setEditable(true);
             }
         });
-    }//Konstruktorin loppu
+    }//Constructor ends here
 
     String finalCoin;
     int result;
 
+    //The actual code to flip the coin
     private void flipTheCoin() {
 
         Random random = new Random();
