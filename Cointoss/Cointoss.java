@@ -21,7 +21,7 @@ public class Cointoss extends JFrame {
     private JButton playButton = new JButton("Play!");
 
     private JTextField moneyLeft = new JTextField("100");
-    private JTextField betAmount = new JTextField("");
+    private JTextField betAmount = new JTextField("0");
     private JTextField coinSide = new JTextField("");
 
     private JRadioButton allIn = new JRadioButton("All in!");
@@ -123,8 +123,11 @@ public class Cointoss extends JFrame {
                     }
                 }
                 else {
-                    JOptionPane.showMessageDialog(playButton, "Don't bet your house on it!", "Bank account error...", JOptionPane.INFORMATION_MESSAGE);
+                    String message="Don't bet your house on it!";
+                    JOptionPane.showMessageDialog(playButton, message, "Bank account error...", JOptionPane.INFORMATION_MESSAGE);
                 }
+                allIn.setSelected(false);
+                betAmount.setEditable(true);
             }
         });
     }//Konstruktorin loppu
