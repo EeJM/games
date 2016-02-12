@@ -87,8 +87,15 @@ public class Cointoss extends JFrame {
         
         allIn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                while (allIn.isSelected()) {
                 betAmount.setText(moneyLeft.getText());
-                betAmount.setEditable(true);
+                betAmount.setEditable(false);
+                break;
+                }
+                while (!allIn.isSelected()) {
+                    betAmount.setEditable(true);
+                    break;
+                }
             }
         });
         
