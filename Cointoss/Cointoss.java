@@ -1,5 +1,6 @@
 package Cointoss;
 //By: Eero, Niko & Thien
+
 import java.awt.event.*;
 import javax.swing.*;
 import java.util.Random;
@@ -8,7 +9,7 @@ import static javax.swing.GroupLayout.Alignment.BASELINE;
 public class Cointoss extends JFrame {
 
     private JPanel basePanel = new JPanel();
-    
+
     private JLabel flipText = new JLabel("Flip");
     private JLabel betText = new JLabel("Your bet: ");
     private JLabel fundsText = new JLabel("Your funds: ");
@@ -22,15 +23,13 @@ public class Cointoss extends JFrame {
     private JTextField moneyLeft = new JTextField("100");
     private JTextField betAmount = new JTextField("");
     private JTextField coinSide = new JTextField("");
-    
+
     private JRadioButton allIn = new JRadioButton("All in!");
-    
-    
-    
+
     public Cointoss() {
         GroupLayout layout = new GroupLayout(basePanel);
         basePanel.setLayout(layout);
-        
+
         GroupLayout.SequentialGroup upperSideBySideGroupX = layout.createSequentialGroup();
         upperSideBySideGroupX.addComponent(flipText);
         upperSideBySideGroupX.addComponent(coinSide);
@@ -72,79 +71,78 @@ public class Cointoss extends JFrame {
         baseY.addGroup(topRowY);
         baseY.addGroup(midRowY);
         baseY.addGroup(botRowY);
-        
+
         layout.setVerticalGroup(baseY);
-        
+
         this.add(basePanel);
         //this.pack();
         this.setTitle("Coin Tossing Game");
         this.setLocationRelativeTo(null);
-        this.setSize(500,300);
+        this.setSize(500, 300);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        
+
         moneyLeft.setEditable(false);
         coinSide.setEditable(false);
-        
+
         allIn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                while (allIn.isSelected()) {
-                betAmount.setText(moneyLeft.getText());
-                betAmount.setEditable(false);
-                break;
+                if (allIn.isSelected()) {
+                    betAmount.setText(moneyLeft.getText());
                 }
-                while (!allIn.isSelected()) {
-                    betAmount.setEditable(true);
-                    break;
-                }
+                betAmount.setEditable(!allIn.isSelected());
             }
         });
-        
+
         playButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                int intMoneyLeft= Integer.parseInt(moneyLeft.getText());
-                int intBetAmount= Integer.parseInt(betAmount.getText());
-                
-                int updatedMoney= intMoneyLeft-intBetAmount;
-                String stringUpdatedMoney= Integer.toString(updatedMoney);
-                
-                moneyLeft.setText(stringUpdatedMoney);
-                
-                flipTheCoin();
-                if (finalCoin == coinList.getSelectedItem()){
-                    int winAmount= Integer.parseInt(betAmount.getText())*2;
-                    String message="You won "+winAmount+"!";
-                    String title="Winner!";
-                    JOptionPane.showMessageDialog(playButton,message,title,JOptionPane.INFORMATION_MESSAGE);
-                    
-                    int newMoneyLeft= Integer.parseInt(moneyLeft.getText())+winAmount;//sick skills 
-                    String stringMoneyLeft=Integer.toString(newMoneyLeft);
-                    moneyLeft.setText(stringMoneyLeft);
+                int intMoneyLeft = Integer.parseInt(moneyLeft.getText());
+                int intBetAmount = Integer.parseInt(betAmount.getText());
+
+                if (intBetAmount <= intMoneyLeft) {
+
+                    int updatedMoney = intMoneyLeft - intBetAmount;
+                    String stringUpdatedMoney = Integer.toString(updatedMoney);
+
+                    moneyLeft.setText(stringUpdatedMoney);
+
+                    flipTheCoin();
+                    if (finalCoin == coinList.getSelectedItem()) {
+                        int winAmount = Integer.parseInt(betAmount.getText()) * 2;
+                        String message = "You won " + winAmount + "!";
+                        String title = "Winner!";
+                        JOptionPane.showMessageDialog(playButton, message, title, JOptionPane.INFORMATION_MESSAGE);
+
+                        int newMoneyLeft = Integer.parseInt(moneyLeft.getText()) + winAmount;//sick skills 
+                        String stringMoneyLeft = Integer.toString(newMoneyLeft);
+                        moneyLeft.setText(stringMoneyLeft);
+                    } else {
+                        int lostAmount = Integer.parseInt(betAmount.getText());
+                        String message = "You lost " + lostAmount + "!";
+                        String title = "Loser!";
+                        JOptionPane.showMessageDialog(playButton, message, title, JOptionPane.INFORMATION_MESSAGE);
+                    }
                 }
                 else {
-                    int lostAmount = Integer.parseInt(betAmount.getText());
-                    String message="You lost "+lostAmount+"!";
-                    String title="Loser!";
-                    JOptionPane.showMessageDialog(playButton,message,title,JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(playButton, "Don't bet your house on it!", "Bank account error...", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         });
     }//Konstruktorin loppu
-    
+
     String finalCoin;
     int result;
-    
+
     private void flipTheCoin() {
-        
-        Random random=new Random();
-        
+
+        Random random = new Random();
+
         result = random.nextInt(2);
-        if(result == 0){
+        if (result == 0) {
             finalCoin = "Heads";
-        }
-        else {
+        } else {
             finalCoin = "Tails";
         }
-        
+
         coinSide.setText(finalCoin);
     }
 
