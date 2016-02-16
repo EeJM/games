@@ -1,6 +1,6 @@
 package Cointoss;
 //By: Eero, Niko & Thien
-//Muokattu omalta koneelta
+//Modified from Netbeans
 
 import java.awt.event.*;
 import javax.swing.*;
