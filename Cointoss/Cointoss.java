@@ -1,6 +1,8 @@
 package Cointoss;
 //By: Eero, Niko & Thien
 
+//Do not update this. All changes from now on should be made to /games/src/Cointoss folder
+
 import java.awt.event.*;
 import javax.swing.*;
 import java.util.Random;
