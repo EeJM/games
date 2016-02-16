@@ -1,6 +1,7 @@
 package Cointoss;
 //By: Eero, Niko & Thien
 //Modified from Netbeans
+//One more push from Netbeans
 
 import java.awt.event.*;
 import javax.swing.*;
