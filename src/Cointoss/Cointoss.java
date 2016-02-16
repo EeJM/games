@@ -1,5 +1,6 @@
 package Cointoss;
 //By: Eero, Niko & Thien
+//Muokattu omalta koneelta
 
 import java.awt.event.*;
 import javax.swing.*;
