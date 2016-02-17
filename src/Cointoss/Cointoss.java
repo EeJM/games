@@ -81,6 +81,8 @@ public class Cointoss extends JFrame {
         this.setLocationRelativeTo(null);
         this.setSize(500, 300);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        
+        this.getRootPane().setDefaultButton(playButton);
 
         moneyLeft.setEditable(false);
         coinSide.setEditable(false);
