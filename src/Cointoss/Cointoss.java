@@ -1,6 +1,6 @@
 package Cointoss;
 //By: Eero, Niko & Thien
-//Removed stupid comments made by Nikz
+//stfu eero
 
 import java.awt.event.*;
 import javax.swing.*;
