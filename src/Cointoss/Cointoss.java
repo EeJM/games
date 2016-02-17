@@ -1,6 +1,6 @@
 package Cointoss;
 //By: Eero, Niko & Thien
-//stfu eero
+
 
 import java.awt.event.*;
 import javax.swing.*;
@@ -99,6 +99,7 @@ public class Cointoss extends JFrame {
 
         playButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                try{
                 int intMoneyLeft = Integer.parseInt(moneyLeft.getText());
                 int intBetAmount = Integer.parseInt(betAmount.getText());
                 
@@ -145,6 +146,11 @@ public class Cointoss extends JFrame {
                 }
                 allIn.setSelected(false);
                 betAmount.setEditable(true);
+                }
+                catch(Exception error) {
+                    String message="Please type numbers only...";
+                    JOptionPane.showMessageDialog(playButton, message,"Error in betting!",JOptionPane.INFORMATION_MESSAGE);
+                }
             }
         });
     }//Constructor ends here
