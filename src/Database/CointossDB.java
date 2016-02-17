@@ -4,37 +4,31 @@ package Database;
 
 public class CointossDB {
     
-    private final int henkiloID;
-    private final String etunimi;
-    private final String sukunimi;
-    private final int syntymavuosi;
+    private final int userID;
+    private final String user;
+    private final int points;
 
-    public CointossDB(int henkiloID, String etunimi, String sukunimi, int syntymavuosi) {
-        this.henkiloID = henkiloID;
-        this.etunimi = etunimi;
-        this.sukunimi = sukunimi;
-        this.syntymavuosi = syntymavuosi;
+    public CointossDB(int userID, String user, int points) {
+        this.userID = userID;
+        this.user = user;
+        this.points = points;
     }
 
-    public int getHenkiloID() {
-        return henkiloID;
+    public int getUserID() {
+        return userID;
     }
 
-    public String getEtunimi() {
-        return etunimi;
+    public String getUser() {
+        return user;
     }
 
-    public String getSukunimi() {
-        return sukunimi;
-    }
-
-    public int getSyntymavuosi() {
-        return syntymavuosi;
+    public int getPoints() {
+        return points;
     }
 
     @Override
     public String toString() {
-        return "ID=" + henkiloID +": " + etunimi + " " + sukunimi +". S." + syntymavuosi;
+        return "ID=" + userID +": " + user + "S." + points;
     }
     
     
