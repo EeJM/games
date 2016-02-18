@@ -1,15 +1,26 @@
 package Cointoss;
 //By: Eero, Niko & Thien
-//if select username, password from users where username = "currentUser" and password = "currentPassword" returns a line
-//allow logging in and change the points to whatever is in points for that user
-
 
 import java.awt.event.*;
 import javax.swing.*;
 import java.util.Random;
 import static javax.swing.GroupLayout.Alignment.BASELINE;
+import java.sql.*;
 
 public class Cointoss extends JFrame {
+    
+    Connection con;
+    Statement st;
+    ResultSet rs;
+    
+    JFrame loginWindow = new JFrame("User login");
+    JLabel userLabel = new JLabel("Username:");
+    JLabel passLabel = new JLabel("Password:");
+    JTextField userField = new JTextField(10);
+    JTextField passField = new JTextField(10);
+    JButton loginButton = new JButton("Login");
+            
+    
 
     private JPanel basePanel = new JPanel();
 
@@ -30,6 +41,11 @@ public class Cointoss extends JFrame {
     private JRadioButton allIn = new JRadioButton("All in!");
 
     public Cointoss() {
+     
+        connect();
+        frame();
+        
+        
         GroupLayout layout = new GroupLayout(basePanel);
         basePanel.setLayout(layout);
 
@@ -99,6 +115,15 @@ public class Cointoss extends JFrame {
             }
         });
 
+        loginButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String currentUser = userField.getText();
+                String currentPass = passField.getText();
+                
+                String sqlQuery = "SELECT username FROM players WHERE username='"+currentUser+"' AND password='"+currentPass+"' LIMIT 1";
+            }
+        });
+        
         playButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try{
@@ -156,6 +181,38 @@ public class Cointoss extends JFrame {
             }
         });
     }//Constructor ends here
+    
+    public void connect() {
+        try
+        {
+            String driver = "org.apache.derby.jdbc.EmeddedDriver";
+            Class.forName(driver);
+            
+            String db = "";
+            con = DriverManager.getConnection(db);
+            st = con.createStatement();
+            
+        }
+        catch(Exception ex){
+               
+        }
+    }
+    
+    public void frame(){
+        loginWindow.setSize(500,300);
+        loginWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        loginWindow.setVisible(true);
+        loginWindow.setLocationRelativeTo(null);
+        
+        JPanel p = new JPanel();
+        p.add(userLabel);
+        p.add(passLabel);
+        p.add(userField);
+        p.add(passField);
+        p.add(loginButton);
+        
+        loginWindow.add(p);
+    }
 
     String finalCoin;
     int result;
@@ -183,3 +240,4 @@ public class Cointoss extends JFrame {
         });
     }
 }
+
