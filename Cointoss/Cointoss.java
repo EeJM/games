@@ -115,6 +115,15 @@ public class Cointoss extends JFrame {
             }
         });
 
+        loginButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String currentUser = userField.getText();
+                String currentPass = passField.getText();
+                
+                String sqlQuery = "SELECT username FROM players WHERE username='"+currentUser+"' AND password='"+currentPass+"' LIMIT 1";
+            }
+        });
+        
         playButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try{
