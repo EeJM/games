@@ -1,5 +1,8 @@
 package Cointoss;
 //By: Eero, Niko & Thien
+//if select username, password from users where username = "currentUser" and password = "currentPassword" returns a line
+//allow logging in and change the points to whatever is in points for that user
+
 
 import java.awt.event.*;
 import javax.swing.*;
