@@ -146,7 +146,7 @@ public class Cointoss extends JFrame {
                 allIn.setSelected(false);
                 betAmount.setEditable(true);
                 }
-                catch(Exception error) {
+                catch(NumberFormatException error) {
                     String message="Please type numbers only...";
                     JOptionPane.showMessageDialog(playButton, message,"Error in betting!",JOptionPane.INFORMATION_MESSAGE);
                 }
