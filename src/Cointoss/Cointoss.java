@@ -1,6 +1,8 @@
 package Cointoss;
 //By: Eero, Niko & Thien
 
+import Database.CointossDB;
+import Database.Repository;
 import java.awt.event.*;
 import javax.swing.*;
 import java.util.Random;
@@ -26,7 +28,14 @@ public class Cointoss extends JFrame {
 
     private JRadioButton allIn = new JRadioButton("All in!");
 
+    private Repository repo=new Repository();
+    
     public Cointoss() {
+        
+        for(CointossDB apu:repo.haeKaikki()){
+            System.out.println(apu);
+        }
+        
         GroupLayout layout = new GroupLayout(basePanel);
         basePanel.setLayout(layout);
 
