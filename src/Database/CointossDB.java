@@ -5,12 +5,14 @@ package Database;
 public class CointossDB {
     
     private final int userID;
-    private final String user;
+    private final String username;
+    private final String password;
     private final int points;
 
-    public CointossDB(int userID, String user, int points) {
+    public CointossDB(int userID, String user,String password, int points) {
         this.userID = userID;
-        this.user = user;
+        this.username = user;
+        this.password = password;
         this.points = points;
     }
 
@@ -19,7 +21,11 @@ public class CointossDB {
     }
 
     public String getUser() {
-        return user;
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public int getPoints() {
@@ -28,7 +34,7 @@ public class CointossDB {
 
     @Override
     public String toString() {
-        return "ID=" + userID +": " + user + "S." + points;
+        return "ID=" + userID +" username: " + username + " Points: " + points + " Password: "+password;
     }
     
     

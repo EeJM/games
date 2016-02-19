@@ -30,7 +30,9 @@ public class Cointoss extends JFrame {
 
     private Repository repo=new Repository();
     
-    public Cointoss() {
+    public Cointoss(int pisteet) {
+        
+        moneyLeft.setText(""+pisteet);
         
         for(CointossDB apu:repo.haeKaikki()){
             System.out.println(apu);
@@ -184,7 +186,7 @@ public class Cointoss extends JFrame {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                new Cointoss().setVisible(true);
+                new Cointoss(0).setVisible(true);
             }
         });
     }
