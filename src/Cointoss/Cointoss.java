@@ -30,9 +30,9 @@ public class Cointoss extends JFrame {
 
     private Repository repo=new Repository();
     
-    public Cointoss(int pisteet) {
+    public Cointoss(int myPoints) {
         
-        moneyLeft.setText(""+pisteet);
+        moneyLeft.setText(""+myPoints);
         
         for(CointossDB apu:repo.haeKaikki()){
             System.out.println(apu);

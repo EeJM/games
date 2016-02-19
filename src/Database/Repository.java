@@ -25,7 +25,7 @@ public class Repository {
     public java.util.List<CointossDB> haeKaikki() {
         java.util.List<CointossDB> users=new java.util.ArrayList<>();
         Connection yhteys=
-                YhteydenHallinta.avaaYhteys(ajuri, url, kayttaja, salasana);
+                ConnectionControl.openConnection(ajuri, url, kayttaja, salasana);
         if(yhteys==null) return users;
         PreparedStatement hakulause=null;
         ResultSet tulosjoukko=null;
@@ -45,16 +45,16 @@ public class Repository {
            e.printStackTrace();
         }
         finally{
-            YhteydenHallinta.suljeTulosjoukko(tulosjoukko);
-            YhteydenHallinta.suljeLause(hakulause);
-            YhteydenHallinta.suljeYhteys(yhteys);    
+            ConnectionControl.closeResults(tulosjoukko);
+            ConnectionControl.closeQuery(hakulause);
+            ConnectionControl.closeConnection(yhteys);    
         }
          return users;
     }//haeKaikki loppu
     
     public int loginPoints(String currentUser, String currentPass) {
         Connection yhteys=
-                YhteydenHallinta.avaaYhteys(ajuri, url, kayttaja, salasana);
+                ConnectionControl.openConnection(ajuri, url, kayttaja, salasana);
         if(yhteys==null) return -1;
         PreparedStatement hakulause=null;
         ResultSet tulosjoukko=null;
@@ -73,9 +73,9 @@ public class Repository {
            return -1;
         }
         finally{
-            YhteydenHallinta.suljeTulosjoukko(tulosjoukko);
-            YhteydenHallinta.suljeLause(hakulause);
-            YhteydenHallinta.suljeYhteys(yhteys);    
+            ConnectionControl.closeResults(tulosjoukko);
+            ConnectionControl.closeQuery(hakulause);
+            ConnectionControl.closeConnection(yhteys);    
         }
     }
     
