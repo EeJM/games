@@ -4,17 +4,17 @@ import java.sql.*;
 
 
 public class Repository {
-    private String ajuri;
+    private String myDriver;
     private String url;
-    private String kayttaja;
-    private String salasana;
+    private String myUser;
+    private String myPassword;
     
-    public Repository(String ajuri, String url, 
-                        String kayttaja, String salasana) {
-        this.ajuri = ajuri;
+    public Repository(String myDriver, String url, 
+                        String myUser, String myPassword) {
+        this.myDriver = myDriver;
         this.url = url;
-        this.kayttaja = kayttaja;
-        this.salasana = salasana;
+        this.myUser = myUser;
+        this.myPassword = myPassword;
     }
 
     public Repository() {
@@ -22,22 +22,22 @@ public class Repository {
             "jdbc:derby:players","sqluser","sqlpassword");
     }
     
-    public java.util.List<CointossDB> haeKaikki() {
+    public java.util.List<CointossDB> getAll() {
         java.util.List<CointossDB> users=new java.util.ArrayList<>();
-        Connection yhteys=
-                ConnectionControl.openConnection(ajuri, url, kayttaja, salasana);
-        if(yhteys==null) return users;
-        PreparedStatement hakulause=null;
-        ResultSet tulosjoukko=null;
+        Connection con=
+                ConnectionControl.openConnection(myDriver, url, myUser, myPassword);
+        if(con==null) return users;
+        PreparedStatement sqlQuery=null;
+        ResultSet results=null;
         try{
-           String hakuSql="select userID, username, password, points from players";
-           hakulause=yhteys.prepareStatement(hakuSql);
-           tulosjoukko=hakulause.executeQuery();
-           while(tulosjoukko.next()) {
-               users.add(new CointossDB( tulosjoukko.getInt("userID"),
-                                        tulosjoukko.getString("username"),
-                                        tulosjoukko.getString("password"),
-                                        tulosjoukko.getInt("points")
+           String myQuery="select userID, username, password, points from players";
+           sqlQuery=con.prepareStatement(myQuery);
+           results=sqlQuery.executeQuery();
+           while(results.next()) {
+               users.add(new CointossDB( results.getInt("userID"),
+                                        results.getString("username"),
+                                        results.getString("password"),
+                                        results.getInt("points")
                                       ));  
            }      
         }
@@ -45,27 +45,27 @@ public class Repository {
            e.printStackTrace();
         }
         finally{
-            ConnectionControl.closeResults(tulosjoukko);
-            ConnectionControl.closeQuery(hakulause);
-            ConnectionControl.closeConnection(yhteys);    
+            ConnectionControl.closeResults(results);
+            ConnectionControl.closeQuery(sqlQuery);
+            ConnectionControl.closeConnection(con);    
         }
          return users;
-    }//haeKaikki loppu
+    }
     
     public int loginPoints(String currentUser, String currentPass) {
-        Connection yhteys=
-                ConnectionControl.openConnection(ajuri, url, kayttaja, salasana);
-        if(yhteys==null) return -1;
-        PreparedStatement hakulause=null;
-        ResultSet tulosjoukko=null;
+        Connection con=
+                ConnectionControl.openConnection(myDriver, url, myUser, myPassword);
+        if(con==null) return -1;
+        PreparedStatement sqlQuery=null;
+        ResultSet results=null;
         try{
-           String hakuSql="SELECT points FROM players WHERE username=? AND password=?";
-           hakulause=yhteys.prepareStatement(hakuSql);
-           hakulause.setString(1, currentUser);
-           hakulause.setString(2, currentPass);
-           tulosjoukko=hakulause.executeQuery();
-           if(tulosjoukko.next()) {
-               return tulosjoukko.getInt("points");  
+           String myQuery="SELECT points FROM players WHERE username=? AND password=?";
+           sqlQuery=con.prepareStatement(myQuery);
+           sqlQuery.setString(1, currentUser);
+           sqlQuery.setString(2, currentPass);
+           results=sqlQuery.executeQuery();
+           if(results.next()) {
+               return results.getInt("points");  
            }
            else return -1;
         }
@@ -73,11 +73,9 @@ public class Repository {
            return -1;
         }
         finally{
-            ConnectionControl.closeResults(tulosjoukko);
-            ConnectionControl.closeQuery(hakulause);
-            ConnectionControl.closeConnection(yhteys);    
+            ConnectionControl.closeResults(results);
+            ConnectionControl.closeQuery(sqlQuery);
+            ConnectionControl.closeConnection(con);    
         }
     }
-    
-    
 }
