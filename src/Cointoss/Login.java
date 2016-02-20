@@ -49,22 +49,24 @@ public class Login extends JFrame {
         
         this.add(basePanel);
         this.pack();
+        this.setTitle("Login");
+        this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        this.getRootPane().setDefaultButton(loginButton);
         
         loginButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 int points=repo.loginPoints(userField.getText(), passField.getText());
-                new Cointoss(points).setVisible(true);
+                if (points > -1){
+                    new Cointoss(points).setVisible(true);
+                    dispose();
+                }
+                else {
+                    String message = "Invalid username or password. Try again.";
+                    JOptionPane.showMessageDialog(loginButton, message, "Login failed", JOptionPane.INFORMATION_MESSAGE);
+                }
             }
         });
         
-    }
-    public static void main(String[] args) {
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new Login().setVisible(true);
-            }
-        });
     }
 }

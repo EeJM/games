@@ -34,10 +34,6 @@ public class Cointoss extends JFrame {
         
         moneyLeft.setText(""+myPoints);
         
-        for(CointossDB apu:repo.haeKaikki()){
-            System.out.println(apu);
-        }
-        
         GroupLayout layout = new GroupLayout(basePanel);
         basePanel.setLayout(layout);
 
@@ -186,7 +182,7 @@ public class Cointoss extends JFrame {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                new Cointoss(0).setVisible(true);
+                new Login().setVisible(true);
             }
         });
     }
