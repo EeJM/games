@@ -21,37 +21,7 @@ public class Repository {
         this("org.apache.derby.jdbc.EmbeddedDriver",
             "jdbc:derby:players","sqluser","sqlpassword");
     }
-    
-    public java.util.List<CointossDB> getAll() {
-        java.util.List<CointossDB> users=new java.util.ArrayList<>();
-        Connection con=
-                ConnectionControl.openConnection(myDriver, url, myUser, myPassword);
-        if(con==null) return users;
-        PreparedStatement sqlQuery=null;
-        ResultSet results=null;
-        try{
-           String myQuery="select userID, username, password, points from players";
-           sqlQuery=con.prepareStatement(myQuery);
-           results=sqlQuery.executeQuery();
-           while(results.next()) {
-               users.add(new CointossDB( results.getInt("userID"),
-                                        results.getString("username"),
-                                        results.getString("password"),
-                                        results.getInt("points")
-                                      ));  
-           }      
-        }
-        catch(Exception e){
-           e.printStackTrace();
-        }
-        finally{
-            ConnectionControl.closeResults(results);
-            ConnectionControl.closeQuery(sqlQuery);
-            ConnectionControl.closeConnection(con);    
-        }
-         return users;
-    }
-    
+
     public int loginPoints(String currentUser, String currentPass) {
         Connection con=
                 ConnectionControl.openConnection(myDriver, url, myUser, myPassword);
@@ -71,6 +41,29 @@ public class Repository {
         }
         catch(Exception e){
            return -1;
+        }
+        finally{
+            ConnectionControl.closeResults(results);
+            ConnectionControl.closeQuery(sqlQuery);
+            ConnectionControl.closeConnection(con);    
+        }
+    }
+    public int updatePoints(String newPoints, String currentUser){
+        Connection con=
+                ConnectionControl.openConnection(myDriver, url, myUser, myPassword);
+        if(con==null) return 1;
+        PreparedStatement sqlQuery=null;
+        ResultSet results=null;
+        try{
+           String myQuery="UPDATE players SET points=? WHERE username=?";
+           sqlQuery=con.prepareStatement(myQuery);
+           sqlQuery.setString(1, newPoints);
+           sqlQuery.setString(2, currentUser);
+           sqlQuery.executeUpdate();
+           return 0;
+        }
+        catch(Exception e){
+           return 1;
         }
         finally{
             ConnectionControl.closeResults(results);

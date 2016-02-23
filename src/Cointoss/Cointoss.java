@@ -1,7 +1,7 @@
 package Cointoss;
 //By: Eero, Niko & Thien
 
-import Database.CointossDB;
+//import Database.CointossDB;
 import Database.Repository;
 import java.awt.event.*;
 import javax.swing.*;
@@ -30,7 +30,7 @@ public class Cointoss extends JFrame {
 
     private Repository repo=new Repository();
     
-    public Cointoss(int myPoints) {
+    public Cointoss(int myPoints, String myUser) {
         
         moneyLeft.setText(""+myPoints);
         
@@ -133,6 +133,12 @@ public class Cointoss extends JFrame {
                         String message = "You lost " + lostAmount + "!";
                         String title = "Loser!";
                         JOptionPane.showMessageDialog(playButton, message, title, JOptionPane.INFORMATION_MESSAGE);
+                    }
+                    String pointsToDB= moneyLeft.getText();
+                    //This takes the user from the login field specified in the first window.
+                    int success=repo.updatePoints(pointsToDB,myUser);
+                    if (success==1){
+                        JOptionPane.showMessageDialog(playButton, "Error", "Something went wrong.", JOptionPane.ERROR_MESSAGE);
                     }
                 }
                 //This happens if you don't have any money left and you try to play
