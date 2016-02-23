@@ -58,7 +58,7 @@ public class Login extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 int points=repo.loginPoints(userField.getText(), passField.getText());
                 //This tells the main class what user is currently playing.
-                String myUser=userField.getText();
+                final String myUser=userField.getText();
                 if (points > -1){
                     new Cointoss(points, myUser).setVisible(true);
                     dispose();
