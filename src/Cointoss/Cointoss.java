@@ -30,7 +30,7 @@ public class Cointoss extends JFrame {
 
     private Repository repo=new Repository();
     
-    public Cointoss(int myPoints, String myUser) {
+    public Cointoss(int myPoints, final String myUser) {
         
         moneyLeft.setText(""+myPoints);
         
