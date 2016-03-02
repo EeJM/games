@@ -63,18 +63,10 @@ public class register extends JFrame {
                 }
                 else {
                     String message = "Something went wrong.";
-                    System.out.println(repo.ex);
                     JOptionPane.showMessageDialog(registerButton, message, "Registering failed", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         });
         
-    }
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                new register().setVisible(true);
-            }
-        });
     }
 }

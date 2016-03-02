@@ -15,6 +15,7 @@ public class Login extends JFrame {
     private JTextField passField=new JTextField(10);
     
     private JButton loginButton=new JButton("Login");
+    private JButton registerButton=new JButton("Register");
     
     private Repository repo=new Repository();
     
@@ -30,8 +31,12 @@ public class Login extends JFrame {
         sideBySideGroupX.addComponent(passField,GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.PREFERRED_SIZE);
         sideBySideGroupX.addComponent(loginButton);
         
+        GroupLayout.SequentialGroup extraButtonGroupX=layout.createSequentialGroup();
+        extraButtonGroupX.addComponent(registerButton);
+        
         GroupLayout.ParallelGroup baseX=layout.createParallelGroup();
         baseX.addGroup(sideBySideGroupX);
+        baseX.addGroup(extraButtonGroupX);
         
         layout.setHorizontalGroup(baseX);
         
@@ -42,8 +47,12 @@ public class Login extends JFrame {
         sideBySideGroupY.addComponent(passField);
         sideBySideGroupY.addComponent(loginButton);
         
+        GroupLayout.ParallelGroup extraButtonGroupY=layout.createParallelGroup();
+        extraButtonGroupY.addComponent(registerButton);
+        
         GroupLayout.SequentialGroup baseY=layout.createSequentialGroup();
         baseY.addGroup(sideBySideGroupY);
+        baseY.addGroup(extraButtonGroupY);
         
         layout.setVerticalGroup(baseY);
         
@@ -67,6 +76,13 @@ public class Login extends JFrame {
                     String message = "Invalid username or password. Try again.";
                     JOptionPane.showMessageDialog(loginButton, message, "Login failed", JOptionPane.INFORMATION_MESSAGE);
                 }
+            }
+        });
+        
+        registerButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                new register().setVisible(true);
+                dispose();
             }
         });
         

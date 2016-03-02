@@ -71,4 +71,27 @@ public class Repository {
             ConnectionControl.closeConnection(con);    
         }
     }
+    public int addUser(String newUser, String newPassword){
+        Connection con=
+                ConnectionControl.openConnection(myDriver, url, myUser, myPassword);
+        if(con==null) return 1;
+        PreparedStatement sqlQuery=null;
+        ResultSet results=null;
+        try{
+           String myQuery="INSERT INTO players (username, password, points) VALUES (?, ?, 100)";
+           sqlQuery=con.prepareStatement(myQuery);
+           sqlQuery.setString(1, newUser);
+           sqlQuery.setString(2, newPassword);
+           sqlQuery.executeUpdate();
+           return 0;
+        }
+        catch(Exception e){
+           return 1;
+        }
+        finally{
+            ConnectionControl.closeResults(results);
+            ConnectionControl.closeQuery(sqlQuery);
+            ConnectionControl.closeConnection(con);    
+        }
+    }
 }
