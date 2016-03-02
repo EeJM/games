@@ -143,8 +143,8 @@ public class Cointoss extends JFrame {
                 }
                 //This happens if you don't have any money left and you try to play
                 else if (intMoneyLeft==0) {
-                    String message="You're too poor to play, restart the program to play again";
-                    JOptionPane.showMessageDialog(playButton, message, "Too poor", JOptionPane.INFORMATION_MESSAGE);
+                    String message="Sorry you are out of funds.";
+                    JOptionPane.showMessageDialog(playButton, message, "Sorry :,(", JOptionPane.INFORMATION_MESSAGE);
                 }
                 //This happens if your trying to bet 0
                 else if (intBetAmount==0){
