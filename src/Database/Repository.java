@@ -94,4 +94,28 @@ public class Repository {
             ConnectionControl.closeConnection(con);    
         }
     }
+    
+    public int removeUser(String delUser, String delPassword){
+        Connection con=
+                ConnectionControl.openConnection(myDriver, url, myUser, myPassword);
+        if(con==null) return 1;
+        PreparedStatement sqlQuery=null;
+        ResultSet results=null;
+        try{
+           String myQuery="DELETE FROM players WHERE username=? AND password=?";
+           sqlQuery=con.prepareStatement(myQuery);
+           sqlQuery.setString(1, delUser);
+           sqlQuery.setString(2, delPassword);
+           sqlQuery.executeUpdate();
+           return 0;
+        }
+        catch(Exception e){
+           return 1;
+        }
+        finally{
+            ConnectionControl.closeResults(results);
+            ConnectionControl.closeQuery(sqlQuery);
+            ConnectionControl.closeConnection(con);    
+        }
+    }
 }
