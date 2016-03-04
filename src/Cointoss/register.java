@@ -12,7 +12,7 @@ public class register extends JFrame {
     private JLabel passText=new JLabel("Your password:");
     
     private JTextField userField=new JTextField(10);
-    private JTextField passField=new JTextField(10);
+    private JPasswordField passField=new JPasswordField(10);
     
     private JButton registerButton=new JButton("Register");
     
@@ -56,7 +56,7 @@ public class register extends JFrame {
         
         registerButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                int successfulReg=repo.addUser(userField.getText(), passField.getText());
+                int successfulReg=repo.addUser(userField.getText(), new String(passField.getPassword()));
                 if (successfulReg == 0) {
                     new Login().setVisible(true);
                     dispose();

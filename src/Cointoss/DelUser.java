@@ -12,7 +12,7 @@ public class DelUser extends JFrame {
     private JLabel passText=new JLabel("Your password:");
     
     private JTextField userField=new JTextField(10);
-    private JTextField passField=new JTextField(10);
+    private JPasswordField passField=new JPasswordField(10);
     
     private JButton deleteButton=new JButton("Delete");
     
@@ -56,8 +56,8 @@ public class DelUser extends JFrame {
         
         deleteButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                int successfulDel=repo.removeUser(userField.getText(), passField.getText());
-                if (successfulDel == 0) {
+                int successfulDel=repo.removeUser(userField.getText(), new String(passField.getPassword()));
+                if (successfulDel == 1) {
                     new Login().setVisible(true);
                     dispose();
                 }

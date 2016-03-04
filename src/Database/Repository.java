@@ -106,11 +106,10 @@ public class Repository {
            sqlQuery=con.prepareStatement(myQuery);
            sqlQuery.setString(1, delUser);
            sqlQuery.setString(2, delPassword);
-           sqlQuery.executeUpdate();
-           return 0;
+           return sqlQuery.executeUpdate();
         }
         catch(Exception e){
-           return 1;
+           return 0;
         }
         finally{
             ConnectionControl.closeResults(results);

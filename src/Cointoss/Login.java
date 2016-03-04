@@ -12,7 +12,7 @@ public class Login extends JFrame {
     private JLabel passText=new JLabel("Your password:");
     
     private JTextField userField=new JTextField(10);
-    private JTextField passField=new JTextField(10);
+    private JPasswordField passField=new JPasswordField(10);
     
     private JButton loginButton=new JButton("Login");
     private JButton registerButton=new JButton("Register");
@@ -68,7 +68,7 @@ public class Login extends JFrame {
         
         loginButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                int points=repo.loginPoints(userField.getText(), passField.getText());
+                int points=repo.loginPoints(userField.getText(),new String(passField.getPassword()));
                 //This tells the main class what user is currently playing.
                 final String myUser=userField.getText();
                 if (points > -1){
