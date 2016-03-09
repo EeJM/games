@@ -3,7 +3,7 @@ package TexasHoldEm;
 import javax.swing.*;
 
 
-public class TexasHoldEm {
+public class TexasHoldEm extends JFrame{
     
     private JPanel basePanel = new JPanel();
     
@@ -101,5 +101,32 @@ public class TexasHoldEm {
 
         layout.setVerticalGroup(baseY);
         
+        this.add(basePanel);
+        this.pack();
+        this.setTitle("Texas hold em");
+        this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        
+        aiCard1.setEditable(false);
+        aiCard2.setEditable(false);
+        
+        table1.setEditable(false);
+        table2.setEditable(false);
+        table3.setEditable(false);
+        table4.setEditable(false);
+        table5.setEditable(false);
+        
+        pCard1.setEditable(false);
+        pCard2.setEditable(false);
+        
     }
+    
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new TexasHoldEm().setVisible(true);
+            }
+        });
+    }
+    
 }
