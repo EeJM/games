@@ -28,8 +28,6 @@ public class Startmenu extends JFrame {
         GroupLayout.SequentialGroup upperSideBySideGroupX = layout.createSequentialGroup();
         upperSideBySideGroupX.addComponent(register);
         upperSideBySideGroupX.addComponent(deleteUser);
-        upperSideBySideGroupX.addComponent(Cointoss);
-        upperSideBySideGroupX.addComponent(RPS);
         
         
         GroupLayout.SequentialGroup midSideBySideGroupX = layout.createSequentialGroup();
@@ -44,7 +42,7 @@ public class Startmenu extends JFrame {
         botSideBySideGroupX.addComponent(Highscores);
         botSideBySideGroupX.addComponent(Quit);
         
-        GroupLayout.SequentialGroup baseX = layout.createSequentialGroup();
+        GroupLayout.ParallelGroup baseX = layout.createParallelGroup();
         baseX.addGroup(upperSideBySideGroupX);
         baseX.addGroup(midSideBySideGroupX);
         baseX.addGroup(lowMidSideBySideGroupX);
@@ -82,24 +80,14 @@ public class Startmenu extends JFrame {
         this.setSize(500, 500);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         
-        
-        
-        
-        
-        
-        
-        
-        
-                
-        
 }
-        public static void main(String[] args) {
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new Startmenu().setVisible(true);
-            }
-        });
-    }
+//        public static void main(String[] args) {
+//        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+//            @Override
+//            public void run() {
+//                new Startmenu().setVisible(true);
+//            }
+//        });
+//    }
         
 }
