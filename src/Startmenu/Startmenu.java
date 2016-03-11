@@ -2,6 +2,7 @@ package Startmenu;
 
 import Cointoss.Cointoss;
 import Cointoss.register;
+import KPS.RPS;
 import TexasHoldEm.TexasHoldEm;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -10,6 +11,7 @@ import javax.swing.*;
 
 public class Startmenu extends JFrame {
     
+    private JLabel userLabel = new JLabel("something went wrong.");
     private JLabel pointsLabel = new JLabel("Something is wrong.");
     
     private JPanel basePanel = new JPanel(new GridLayout(3, 2));
@@ -25,8 +27,10 @@ public class Startmenu extends JFrame {
 
     public Startmenu(final int myPoints, final String myUser) {
         
+        userLabel.setFont(new Font(Font.SERIF,Font.BOLD,20));
         pointsLabel.setFont(new Font(Font.SERIF,Font.BOLD,20));
         
+        userLabel.setText("User: "+myUser);
         pointsLabel.setText("Your points: "+myPoints);
 
         GroupLayout layout = new GroupLayout(basePanel);
@@ -47,6 +51,7 @@ public class Startmenu extends JFrame {
         botRowX.addComponent(Quit, 200, 200, 200);
 
         GroupLayout.ParallelGroup baseX = layout.createParallelGroup();
+        baseX.addComponent(userLabel, GroupLayout.Alignment.CENTER);
         baseX.addComponent(pointsLabel, GroupLayout.Alignment.CENTER);
         baseX.addGroup(topRowX);
         baseX.addGroup(midRowX);
@@ -67,6 +72,7 @@ public class Startmenu extends JFrame {
         botRowY.addComponent(Quit, 100, 100, 100);
 
         GroupLayout.SequentialGroup baseY = layout.createSequentialGroup();
+        baseY.addComponent(userLabel);
         baseY.addComponent(pointsLabel);
         baseY.addGap(10);
         baseY.addGroup(topRowY);
@@ -84,6 +90,13 @@ public class Startmenu extends JFrame {
         Cointoss.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 new Cointoss(myPoints, myUser).setVisible(true);
+                dispose();
+            }
+        });
+        
+        RPS.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                new RPS(myPoints, myUser).setVisible(true);
                 dispose();
             }
         });
