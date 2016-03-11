@@ -184,12 +184,4 @@ public class Cointoss extends JFrame {
 
         coinSide.setText(finalCoin);
     }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                new Login().setVisible(true);
-            }
-        });
-    }
 }

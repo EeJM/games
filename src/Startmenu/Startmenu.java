@@ -1,6 +1,7 @@
 package Startmenu;
 
 import Cointoss.Cointoss;
+import Cointoss.Login;
 import Cointoss.register;
 import KPS.RPS;
 import TexasHoldEm.TexasHoldEm;
@@ -83,7 +84,7 @@ public class Startmenu extends JFrame {
 
         this.add(basePanel);
         this.setTitle("Main menu");
-        this.setLocationRelativeTo(null);
+        this.setLocation(450, 130);
         this.pack();
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
@@ -114,6 +115,14 @@ public class Startmenu extends JFrame {
             }
         });
 
+    }
+    
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new Login().setVisible(true);
+            }
+        });
     }
 
 }
