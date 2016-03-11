@@ -18,6 +18,7 @@ public class Login extends JFrame {
     private JButton loginButton=new JButton("Login");
     private JButton registerButton=new JButton("Register");
     private JButton deleteButton=new JButton("Delete a user");
+    private JButton quitButton=new JButton("Quit");
     
     private Repository repo=new Repository();
     
@@ -36,6 +37,7 @@ public class Login extends JFrame {
         GroupLayout.SequentialGroup extraButtonGroupX=layout.createSequentialGroup();
         extraButtonGroupX.addComponent(registerButton);
         extraButtonGroupX.addComponent(deleteButton);
+        extraButtonGroupX.addComponent(quitButton);
         
         GroupLayout.ParallelGroup baseX=layout.createParallelGroup();
         baseX.addGroup(sideBySideGroupX);
@@ -53,6 +55,7 @@ public class Login extends JFrame {
         GroupLayout.ParallelGroup extraButtonGroupY=layout.createParallelGroup();
         extraButtonGroupY.addComponent(registerButton);
         extraButtonGroupY.addComponent(deleteButton);
+        extraButtonGroupY.addComponent(quitButton);
         
         GroupLayout.SequentialGroup baseY=layout.createSequentialGroup();
         baseY.addGroup(sideBySideGroupY);
@@ -97,5 +100,10 @@ public class Login extends JFrame {
             }
         });
         
+        quitButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+            }
+        });
     }
 }
