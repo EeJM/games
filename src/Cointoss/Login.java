@@ -1,6 +1,7 @@
 package Cointoss;
 
 import Database.Repository;
+import Startmenu.Startmenu;
 import java.awt.event.*;
 import javax.swing.*;
 
@@ -72,7 +73,7 @@ public class Login extends JFrame {
                 //This tells the main class what user is currently playing.
                 final String myUser=userField.getText();
                 if (points > -1){
-                    new Cointoss(points, myUser).setVisible(true);
+                    new Startmenu(points, myUser).setVisible(true);
                     dispose();
                 }
                 else {
