@@ -1,6 +1,11 @@
 package Startmenu;
 
+import Cointoss.Cointoss;
+import Cointoss.register;
+import TexasHoldEm.TexasHoldEm;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 
 
@@ -20,27 +25,27 @@ public class Startmenu extends JFrame {
         private JButton Highscores = new JButton("Highscores");
         private JButton Quit = new JButton("Quit");
         
-        public Startmenu() {
+        public Startmenu(int myPoints, final String myUser) {
         
         GroupLayout layout = new GroupLayout(basePanel);
         basePanel.setLayout(layout);
         
         GroupLayout.SequentialGroup upperSideBySideGroupX = layout.createSequentialGroup();
-        upperSideBySideGroupX.addComponent(register);
-        upperSideBySideGroupX.addComponent(deleteUser);
+        upperSideBySideGroupX.addComponent(register,200, 200, 200);
+        upperSideBySideGroupX.addComponent(deleteUser,200, 200, 200);
         
         
         GroupLayout.SequentialGroup midSideBySideGroupX = layout.createSequentialGroup();
-        midSideBySideGroupX.addComponent(Cointoss);
-        midSideBySideGroupX.addComponent(RPS);
+        midSideBySideGroupX.addComponent(Cointoss,200, 200, 200);
+        midSideBySideGroupX.addComponent(RPS,200, 200, 200);
         
         GroupLayout.SequentialGroup lowMidSideBySideGroupX = layout.createSequentialGroup();
-        lowMidSideBySideGroupX.addComponent(Snails);
-        lowMidSideBySideGroupX.addComponent(texas);
+        lowMidSideBySideGroupX.addComponent(Snails,200, 200, 200);
+        lowMidSideBySideGroupX.addComponent(texas,200, 200, 200);
         
         GroupLayout.SequentialGroup botSideBySideGroupX = layout.createSequentialGroup();
-        botSideBySideGroupX.addComponent(Highscores);
-        botSideBySideGroupX.addComponent(Quit);
+        botSideBySideGroupX.addComponent(Highscores,200, 200, 200);
+        botSideBySideGroupX.addComponent(Quit,200, 200, 200);
         
         GroupLayout.ParallelGroup baseX = layout.createParallelGroup();
         baseX.addGroup(upperSideBySideGroupX);
@@ -51,20 +56,20 @@ public class Startmenu extends JFrame {
         layout.setHorizontalGroup(baseX);
         
         GroupLayout.ParallelGroup topRowY = layout.createParallelGroup();
-        topRowY.addComponent(register);
-        topRowY.addComponent(deleteUser);
+        topRowY.addComponent(register,100, 100, 100);
+        topRowY.addComponent(deleteUser,100, 100, 100);
         
         GroupLayout.ParallelGroup upperMidY = layout.createParallelGroup();
-        upperMidY.addComponent(Cointoss);
-        upperMidY.addComponent(RPS);
+        upperMidY.addComponent(Cointoss,100, 100, 100);
+        upperMidY.addComponent(RPS,100, 100, 100);
         
         GroupLayout.ParallelGroup lowerMidY = layout.createParallelGroup();
-        lowerMidY.addComponent(Snails);
-        lowerMidY.addComponent(texas);
+        lowerMidY.addComponent(Snails,100, 100, 100);
+        lowerMidY.addComponent(texas,100, 100, 100);
         
         GroupLayout.ParallelGroup botRowY = layout.createParallelGroup();
-        botRowY.addComponent(Highscores);
-        botRowY.addComponent(Quit);
+        botRowY.addComponent(Highscores,100, 100, 100);
+        botRowY.addComponent(Quit,100, 100, 100);
         
         GroupLayout.SequentialGroup baseY = layout.createSequentialGroup();
         baseY.addGroup(topRowY);
@@ -77,9 +82,29 @@ public class Startmenu extends JFrame {
         this.add(basePanel);
         this.setTitle("Main menu");
         this.setLocationRelativeTo(null);
-        this.setSize(500, 500);
+        this.pack();
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         
+         Cointoss.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                new Cointoss(myPoints, myUser).setVisible(true);
+                dispose();
+            }
+        });
+         
+          Quit.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+            }
+        });
+          
+            texas.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                new TexasHoldEm().setVisible(true);
+                dispose();
+            }
+        });
+       
 }
 //        public static void main(String[] args) {
 //        javax.swing.SwingUtilities.invokeLater(new Runnable() {
