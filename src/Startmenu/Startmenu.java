@@ -25,7 +25,7 @@ public class Startmenu extends JFrame {
         private JButton Highscores = new JButton("Highscores");
         private JButton Quit = new JButton("Quit");
         
-        public Startmenu(int myPoints, final String myUser) {
+        public Startmenu(final int myPoints, final String myUser) {
         
         GroupLayout layout = new GroupLayout(basePanel);
         basePanel.setLayout(layout);
