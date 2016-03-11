@@ -102,19 +102,18 @@ public class Startmenu extends JFrame {
             }
         });
 
+        texas.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                new TexasHoldEm(myPoints, myUser).setVisible(true);
+                dispose();
+            }
+        });
+        
         Quit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 dispose();
             }
         });
-
-        texas.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                new TexasHoldEm().setVisible(true);
-                dispose();
-            }
-        });
-
     }
     
     public static void main(String[] args) {

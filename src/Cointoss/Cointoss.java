@@ -3,6 +3,8 @@ package Cointoss;
 
 //import Database.CointossDB;
 import Database.Repository;
+import Startmenu.Startmenu;
+import java.awt.Font;
 import java.awt.event.*;
 import javax.swing.*;
 import java.util.Random;
@@ -21,6 +23,7 @@ public class Cointoss extends JFrame {
     private JComboBox coinList = new JComboBox(choices);
 
     private JButton playButton = new JButton("Play!");
+    private JButton mainMenuButton = new JButton("Main menu");
 
     private JTextField moneyLeft = new JTextField("100");
     private JTextField betAmount = new JTextField("0");
@@ -31,6 +34,8 @@ public class Cointoss extends JFrame {
     private Repository repo=new Repository();
     
     public Cointoss(int myPoints, final String myUser) {
+        
+        coinSide.setFont(new Font(Font.SERIF,Font.BOLD,50));
         
         moneyLeft.setText(""+myPoints);
         
@@ -47,6 +52,7 @@ public class Cointoss extends JFrame {
         midSideBySideGroupX.addComponent(coinList);
         midSideBySideGroupX.addComponent(playButton);
         midSideBySideGroupX.addComponent(allIn);
+        midSideBySideGroupX.addComponent(mainMenuButton);
 
         GroupLayout.SequentialGroup botSideBySideGroupX = layout.createSequentialGroup();
         botSideBySideGroupX.addComponent(fundsText);
@@ -69,6 +75,7 @@ public class Cointoss extends JFrame {
         topRowY.addComponent(coinList);
         topRowY.addComponent(playButton);
         topRowY.addComponent(allIn);
+        topRowY.addComponent(mainMenuButton);
 
         GroupLayout.ParallelGroup midRowY = layout.createParallelGroup(BASELINE);
         midRowY.addComponent(fundsText);
@@ -165,6 +172,15 @@ public class Cointoss extends JFrame {
                 }
             }
         });
+        
+        mainMenuButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                int actualMoneyLeft = Integer.parseInt(moneyLeft.getText()); 
+                new Startmenu(actualMoneyLeft, myUser).setVisible(true);
+                dispose();
+            }
+        });
+        
     }//Constructor ends here
 
     String finalCoin;

@@ -1,5 +1,8 @@
 package TexasHoldEm;
 
+import Startmenu.Startmenu;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 
 
@@ -30,7 +33,7 @@ public class TexasHoldEm extends JFrame{
     private JLabel fundsText = new JLabel("Funds:");
     private JLabel betText = new JLabel("Bet:");
     
-    public TexasHoldEm() {
+    public TexasHoldEm(final int myPoints, final String myUser) {
         
         GroupLayout layout = new GroupLayout(basePanel);
         basePanel.setLayout(layout);
@@ -126,12 +129,18 @@ public class TexasHoldEm extends JFrame{
 //        
         fundsLeft.setEditable(false);
         
+        mainMenu.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                new Startmenu(myPoints, myUser).setVisible(true);
+                dispose();
+            }
+        });
     }
     
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                new TexasHoldEm().setVisible(true);
+                new TexasHoldEm(1000,"Test").setVisible(true);
             }
         });
     }
