@@ -13,6 +13,8 @@ public class TexasHoldEm extends JFrame{
     private JLabel aiCard1 = new JLabel("aicard1");
     private JLabel aiCard2 = new JLabel("aicard2");
     
+    private JLabel currentPot = new JLabel("0");
+    
     private JLabel table1 = new JLabel("table1");
     private JLabel table2 = new JLabel("table2");
     private JLabel table3 = new JLabel("table3");
@@ -22,8 +24,8 @@ public class TexasHoldEm extends JFrame{
     private JLabel pCard1 = new JLabel("pcard1");
     private JLabel pCard2 = new JLabel("pcard2");
     
-    private JTextField fundsLeft = new JTextField("100");
-    private JLabel betAmount = new JLabel("10");
+    private JTextField fundsLeft = new JTextField("Error");
+    private JTextField betAmount = new JTextField("10");
     
     private JButton mainMenu = new JButton("Main menu");
     private JButton match = new JButton("Match");
@@ -45,6 +47,7 @@ public class TexasHoldEm extends JFrame{
         //topRowX.addGap(30);
         topRowX.addComponent(aiCard2,100,100,100);
         topRowX.addComponent(mainMenu);
+        topRowX.addComponent(currentPot);
 
         GroupLayout.SequentialGroup midRowX = layout.createSequentialGroup();
         midRowX.addComponent(table1,100,100,100);
@@ -78,6 +81,7 @@ public class TexasHoldEm extends JFrame{
         topRowY.addComponent(aiCard1,50,50,50);
         topRowY.addComponent(aiCard2,50,50,50);
         topRowY.addComponent(mainMenu,50,50,50);
+        topRowY.addComponent(currentPot,50,50,50);
 
         GroupLayout.ParallelGroup midRowY = layout.createParallelGroup();
         midRowY.addComponent(table1,50,50,50);
@@ -129,12 +133,154 @@ public class TexasHoldEm extends JFrame{
 //        
         fundsLeft.setEditable(false);
         
+        String myPointsString=Integer.toString(myPoints);
+        fundsLeft.setText(myPointsString);
+        
+        dealPlayerCards();
+        
         mainMenu.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 new Startmenu(myPoints, myUser).setVisible(true);
                 dispose();
             }
         });
+    }
+    
+    private void dealPlayerCards() {
+        String playerCard1 = "Something";
+        String playerCard2 = "Something";
+        
+        pCard1.setText(playerCard1);
+        pCard2.setText(playerCard2);
+        
+        match.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                //match the current bet
+                firstBets();
+            }
+        });
+        
+        checkFold.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                //if (bet > 0) fold()
+                firstBets();
+            }
+        });
+        
+        raise.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                //new window that asks you how much you want to raise
+                firstBets();
+            }
+        });
+    }
+    
+    private void firstBets() {
+        //computer/other player bets here
+        JOptionPane.showMessageDialog(this, "Bet or whatever, idc", "Do something!", JOptionPane.INFORMATION_MESSAGE);
+        dealFirstTable();
+    }
+    
+    private void dealFirstTable() {
+        String tableCard1 = "Something";
+        String tableCard2 = "Something";
+        String tableCard3 = "Something";
+        
+        table1.setText(tableCard1);
+        table2.setText(tableCard2);
+        table3.setText(tableCard3);
+        
+        match.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                //match the current bet
+                secondBets();
+            }
+        });
+        
+        checkFold.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                //if (bet > 0) fold()
+                secondBets();
+            }
+        });
+        
+        raise.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                //new window that asks you how much you want to raise
+                secondBets();
+            }
+        });
+    }
+    
+    private void secondBets() {
+        //computer/other player bets again
+        JOptionPane.showMessageDialog(this, "Bet or whatever, idc", "Do something!", JOptionPane.INFORMATION_MESSAGE);
+        dealSecondTable();
+    }
+    
+    private void dealSecondTable() {
+        String tableCard4 = "Something";
+        
+        table4.setText(tableCard4);
+        
+        match.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                //match the current bet
+                thirdBets();
+            }
+        });
+        
+        checkFold.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                //if (bet > 0) fold()
+                thirdBets();
+            }
+        });
+        
+        raise.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                //new window that asks you how much you want to raise
+                thirdBets();
+            }
+        });
+    }
+    
+    private void thirdBets() {
+        //computer/other player bets yet again
+        JOptionPane.showMessageDialog(this, "Bet or whatever, idc", "Do something asshole!", JOptionPane.INFORMATION_MESSAGE);
+        dealLastTable();
+    }
+    
+    private void dealLastTable() {
+        String tableCard5 = "something";
+        
+        table5.setText(tableCard5);
+        
+        match.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                //match the current bet
+                lastBets();
+            }
+        });
+        
+        checkFold.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                //if (bet > 0) fold()
+                lastBets();
+            }
+        });
+        
+        raise.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                //new window that asks you how much you want to raise
+                lastBets();
+            }
+        });
+    }
+    
+    private void lastBets() {
+        //The computer does whatever it wants to
+        JOptionPane.showMessageDialog(this, "Bet or whatever, idc", "Do something asshole!", JOptionPane.INFORMATION_MESSAGE);
     }
     
     public static void main(String[] args) {
