@@ -1,25 +1,27 @@
 package TexasHoldEm;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Stack;
 
 
 public class Card {
     
     private int value;
     private String suit;
-    private String colour;
+    private Color colour;
 
     public Card(int value, String suit) {
         this.value = value;
         this.suit = suit.toLowerCase();
         
         if (suit.equalsIgnoreCase("hearts") || suit.equalsIgnoreCase("diamonds")) {
-            this.colour="red";
+            this.colour=Color.red;
         }
         else {
-            this.colour="black";
+            this.colour=Color.black;
         }
     }
 
@@ -31,7 +33,7 @@ public class Card {
         return suit;
     }
 
-    public String getColour() {
+    public Color getColour() {
         return colour;
     }
 
@@ -46,7 +48,7 @@ public class Card {
         else if (suit.equals("clubs")) symbol="♣";
         
         if (value==1) {
-            
+            return symbol+"A";
         }
         
         return symbol+value;
@@ -54,7 +56,7 @@ public class Card {
     
     public static void main(String[] args) {
         
-        List<Card> pakka=new ArrayList<>();
+        Stack<Card> pakka=new Stack<>();
         
         for(int i=1;i<14;i++) {
         
@@ -64,12 +66,24 @@ public class Card {
         pakka.add(new Card(i,"diamonds"));
         }
         
+        System.out.println(pakka);
+        
         Collections.shuffle(pakka);
         System.out.println(pakka);
         
+        Collections.shuffle(pakka);
+        System.out.println(pakka);
         
+        Collections.shuffle(pakka);
+        System.out.println(pakka);
         
-        System.out.println(pakka.get(0).getColour());
+//        Card kortti = pakka.pop();
+//        
+//        System.out.println(kortti.getColour()+","+kortti);
+//        
+//        kortti = pakka.pop();
+//        
+//        System.out.println(kortti.getColour()+","+kortti);
         
         
     }

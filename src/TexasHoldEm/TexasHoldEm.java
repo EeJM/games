@@ -1,8 +1,11 @@
 package TexasHoldEm;
 
 import Startmenu.Startmenu;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Collections;
+import java.util.Stack;
 import javax.swing.*;
 
 
@@ -10,19 +13,19 @@ public class TexasHoldEm extends JFrame{
     
     private JPanel basePanel = new JPanel();
     
-    private JLabel aiCard1 = new JLabel("aicard1");
-    private JLabel aiCard2 = new JLabel("aicard2");
+    private JLabel aiCard1 = new JLabel("hidden");
+    private JLabel aiCard2 = new JLabel("hidden");
     
     private JLabel currentPot = new JLabel("0");
     
-    private JLabel table1 = new JLabel("table1");
-    private JLabel table2 = new JLabel("table2");
-    private JLabel table3 = new JLabel("table3");
-    private JLabel table4 = new JLabel("table4");
-    private JLabel table5 = new JLabel("table5");
+    private JLabel table1 = new JLabel("hidden");
+    private JLabel table2 = new JLabel("hidden");
+    private JLabel table3 = new JLabel("hidden");
+    private JLabel table4 = new JLabel("hidden");
+    private JLabel table5 = new JLabel("hidden");
     
-    private JLabel pCard1 = new JLabel("pcard1");
-    private JLabel pCard2 = new JLabel("pcard2");
+    private JLabel pCard1 = new JLabel("hidden");
+    private JLabel pCard2 = new JLabel("hidden");
     
     private JTextField fundsLeft = new JTextField("Error");
     private JTextField betAmount = new JTextField("10");
@@ -35,7 +38,21 @@ public class TexasHoldEm extends JFrame{
     private JLabel fundsText = new JLabel("Funds:");
     private JLabel betText = new JLabel("Bet:");
     
+    private int laskuri = 0;
+    
+    private Stack<Card> deck=new Stack<>();
+    
+    private Timer kello=new Timer(3000,
+        new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                resetCards();
+            }
+    });
+    
     public TexasHoldEm(final int myPoints, final String myUser) {
+        
+        shuffleDeck();
         
         GroupLayout layout = new GroupLayout(basePanel);
         basePanel.setLayout(layout);
@@ -116,21 +133,7 @@ public class TexasHoldEm extends JFrame{
         this.setTitle("Texas hold em");
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        
-//        aiCard1.setEditable(false);
-//        aiCard1.setBorder(BorderFactory.createLineBorder(Color.red));
-//        aiCard2.setEditable(false);
-//        aiCard2.setBorder(BorderFactory.createLineBorder(Color.red));
-//        
-//        table1.setEditable(false);
-//        table2.setEditable(false);
-//        table3.setEditable(false);
-//        table4.setEditable(false);
-//        table5.setEditable(false);
-//        
-//        pCard1.setEditable(false);
-//        pCard2.setEditable(false);
-//        
+          
         fundsLeft.setEditable(false);
         
         String myPointsString=Integer.toString(myPoints);
@@ -146,141 +149,184 @@ public class TexasHoldEm extends JFrame{
         });
     }
     
-    private void dealPlayerCards() {
-        String playerCard1 = "Something";
-        String playerCard2 = "Something";
+    private void bet() {
         
-        pCard1.setText(playerCard1);
-        pCard2.setText(playerCard2);
+        /*if (bet > 0) {
+            //random one of these
+            //small chance for fold
+            //big chance for paying
+            //a decent chance for raising
+        }
+        else {
+            
+        }*/
+        
+        laskuri++;
+        
+        if (laskuri == 1) {
+            firstBets();
+        }
+        else if (laskuri == 2) {
+            secondBets();
+        }
+        else if (laskuri == 3) {
+            thirdBets();
+        }
+        else if (laskuri == 4) {
+            match.setEnabled(false);
+            checkFold.setEnabled(false);
+            raise.setEnabled(false);
+            lastBets();
+            //dealPoints();
+            laskuri = 0;
+        }
+    }
+    
+    private void dealPlayerCards() {
+        
+        Card card = deck.pop();
+        
+        pCard1.setText(card.toString());
+        pCard2.setForeground(card.getColour());
+        
+        card = deck.pop();
+        pCard2.setText(card.toString());
+        pCard2.setForeground(card.getColour());
         
         match.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 //match the current bet
-                firstBets();
+                bet();
             }
         });
         
         checkFold.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 //if (bet > 0) fold()
-                firstBets();
+                bet();
             }
         });
         
         raise.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 //new window that asks you how much you want to raise
-                firstBets();
+                bet();
             }
         });
     }
     
+    private void shuffleDeck() {
+        
+        for(int i=1;i<14;i++) {
+        
+        deck.add(new Card(i,"spades"));
+        deck.add(new Card(i,"hearts"));
+        deck.add(new Card(i,"clubs"));
+        deck.add(new Card(i,"diamonds"));
+        }
+        
+        Collections.shuffle(deck);
+        Collections.shuffle(deck);
+        Collections.shuffle(deck);
+    }
+    
     private void firstBets() {
-        //computer/other player bets here
-        JOptionPane.showMessageDialog(this, "Bet or whatever, idc", "Do something!", JOptionPane.INFORMATION_MESSAGE);
+        
+        
         dealFirstTable();
     }
     
     private void dealFirstTable() {
-        String tableCard1 = "Something";
-        String tableCard2 = "Something";
-        String tableCard3 = "Something";
         
-        table1.setText(tableCard1);
-        table2.setText(tableCard2);
-        table3.setText(tableCard3);
+        Card card = deck.pop();
         
-        match.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                //match the current bet
-                secondBets();
-            }
-        });
+        table1.setText(card.toString());
+        table1.setForeground(card.getColour());
         
-        checkFold.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                //if (bet > 0) fold()
-                secondBets();
-            }
-        });
+        card = deck.pop();
+        table2.setText(card.toString());
+        table2.setForeground(card.getColour());
         
-        raise.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                //new window that asks you how much you want to raise
-                secondBets();
-            }
-        });
+        card = deck.pop();
+        table3.setText(card.toString());
+        table3.setForeground(card.getColour());
     }
     
     private void secondBets() {
         //computer/other player bets again
-        JOptionPane.showMessageDialog(this, "Bet or whatever, idc", "Do something!", JOptionPane.INFORMATION_MESSAGE);
+        //JOptionPane.showMessageDialog(this, "Bet or whatever, idc", "Do something!", JOptionPane.INFORMATION_MESSAGE);
         dealSecondTable();
     }
     
     private void dealSecondTable() {
-        String tableCard4 = "Something";
-        
-        table4.setText(tableCard4);
-        
-        match.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                //match the current bet
-                thirdBets();
-            }
-        });
-        
-        checkFold.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                //if (bet > 0) fold()
-                thirdBets();
-            }
-        });
-        
-        raise.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                //new window that asks you how much you want to raise
-                thirdBets();
-            }
-        });
+        Card card = deck.pop();
+        table4.setText(card.toString());
+        table4.setForeground(card.getColour());
     }
     
     private void thirdBets() {
         //computer/other player bets yet again
-        JOptionPane.showMessageDialog(this, "Bet or whatever, idc", "Do something asshole!", JOptionPane.INFORMATION_MESSAGE);
+        //JOptionPane.showMessageDialog(this, "Bet or whatever, idc", "Do something asshole!", JOptionPane.INFORMATION_MESSAGE);
         dealLastTable();
     }
     
     private void dealLastTable() {
-        String tableCard5 = "something";
-        
-        table5.setText(tableCard5);
-        
-        match.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                //match the current bet
-                lastBets();
-            }
-        });
-        
-        checkFold.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                //if (bet > 0) fold()
-                lastBets();
-            }
-        });
-        
-        raise.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                //new window that asks you how much you want to raise
-                lastBets();
-            }
-        });
+        Card card = deck.pop();
+        table5.setText(card.toString());
+        table5.setForeground(card.getColour());
     }
     
     private void lastBets() {
         //The computer does whatever it wants to
-        JOptionPane.showMessageDialog(this, "Bet or whatever, idc", "Do something asshole!", JOptionPane.INFORMATION_MESSAGE);
+        //JOptionPane.showMessageDialog(this, "Bet or whatever, idc", "Do something asshole!", JOptionPane.INFORMATION_MESSAGE);
+        showAiCards();
+    }
+    
+    private void showAiCards() {
+        
+        Card card = deck.pop();
+        aiCard1.setText(card.toString());
+        aiCard1.setForeground(card.getColour());
+        
+        card = deck.pop();
+        aiCard2.setText(card.toString());
+        aiCard2.setForeground(card.getColour());
+        
+        kello.start();
+    }
+    
+    private void resetCards() {
+        
+        aiCard1.setText("hidden");
+        aiCard1.setForeground(Color.black);
+        aiCard2.setText("hidden");
+        aiCard2.setForeground(Color.black);
+        
+        table1.setText("hidden");
+        table1.setForeground(Color.black);
+        table2.setText("hidden");
+        table2.setForeground(Color.black);
+        table3.setText("hidden");
+        table3.setForeground(Color.black);
+        table4.setText("hidden");
+        table4.setForeground(Color.black);
+        table5.setText("hidden");
+        table5.setForeground(Color.black);
+        
+        shuffleDeck();
+        
+        Card card = deck.pop();
+        pCard1.setText(card.toString());
+        pCard1.setForeground(card.getColour());
+        
+        card = deck.pop();
+        pCard2.setText(card.toString());
+        pCard2.setForeground(card.getColour());
+        
+        kello.stop();
+        match.setEnabled(true);
+        checkFold.setEnabled(true);
+        raise.setEnabled(true);
     }
     
     public static void main(String[] args) {
