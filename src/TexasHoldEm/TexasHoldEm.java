@@ -40,6 +40,8 @@ public class TexasHoldEm extends JFrame{
     
     private int laskuri = 0;
     
+    private int bet;
+    
     private Stack<Card> deck=new Stack<>();
     
     private Timer kello=new Timer(3000,
@@ -210,6 +212,7 @@ public class TexasHoldEm extends JFrame{
         raise.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 //new window that asks you how much you want to raise
+                bet = bet+Integer.parseInt(betAmount.getText());
                 bet();
             }
         });
@@ -232,6 +235,7 @@ public class TexasHoldEm extends JFrame{
     
     private void firstBets() {
         
+        currentPot.setText(Integer.toString(bet));
         
         dealFirstTable();
     }
@@ -253,6 +257,8 @@ public class TexasHoldEm extends JFrame{
     }
     
     private void secondBets() {
+        
+        currentPot.setText(Integer.toString(bet));
         //computer/other player bets again
         //JOptionPane.showMessageDialog(this, "Bet or whatever, idc", "Do something!", JOptionPane.INFORMATION_MESSAGE);
         dealSecondTable();
@@ -265,6 +271,8 @@ public class TexasHoldEm extends JFrame{
     }
     
     private void thirdBets() {
+        
+        currentPot.setText(Integer.toString(bet));
         //computer/other player bets yet again
         //JOptionPane.showMessageDialog(this, "Bet or whatever, idc", "Do something asshole!", JOptionPane.INFORMATION_MESSAGE);
         dealLastTable();
@@ -277,6 +285,8 @@ public class TexasHoldEm extends JFrame{
     }
     
     private void lastBets() {
+        
+        currentPot.setText(Integer.toString(bet));
         //The computer does whatever it wants to
         //JOptionPane.showMessageDialog(this, "Bet or whatever, idc", "Do something asshole!", JOptionPane.INFORMATION_MESSAGE);
         showAiCards();
@@ -312,6 +322,9 @@ public class TexasHoldEm extends JFrame{
         table4.setForeground(Color.black);
         table5.setText("hidden");
         table5.setForeground(Color.black);
+        
+        bet = 0;
+        currentPot.setText("0");
         
         shuffleDeck();
         
