@@ -187,7 +187,7 @@ public class TexasHoldEm extends JFrame{
         Card card = deck.pop();
         
         pCard1.setText(card.toString());
-        pCard2.setForeground(card.getColour());
+        pCard1.setForeground(card.getColour());
         
         card = deck.pop();
         pCard2.setText(card.toString());
