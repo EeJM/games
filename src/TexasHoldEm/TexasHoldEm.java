@@ -153,13 +153,14 @@ public class TexasHoldEm extends JFrame{
     
     private void bet() {
         
-        /*if (bet > 0) {
+        if (bet > 0) {
+            bet = bet+Integer.parseInt(betAmount.getText());
             //random one of these
             //small chance for fold
             //big chance for paying
             //a decent chance for raising
         }
-        else {
+        /*else {
             
         }*/
         
