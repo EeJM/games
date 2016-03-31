@@ -35,12 +35,18 @@ public class TexasHoldEm extends JFrame{
     private JButton checkFold = new JButton("Check/fold");
     private JButton raise = new JButton("Raise");
     
+    private JLabel aiAction = new JLabel("test");
+    
     private JLabel fundsText = new JLabel("Funds:");
     private JLabel betText = new JLabel("Bet:");
     
     private int laskuri = 0;
     
     private int bet;
+    
+    private boolean raised = false;
+    
+    private int raiseAmount;
     
     private Stack<Card> deck=new Stack<>();
     
@@ -87,6 +93,7 @@ public class TexasHoldEm extends JFrame{
         extraButtonGroupX.addComponent(match);
         extraButtonGroupX.addComponent(checkFold);
         extraButtonGroupX.addComponent(raise);
+        extraButtonGroupX.addComponent(aiAction);
 
         GroupLayout.ParallelGroup baseX = layout.createParallelGroup();
         baseX.addGroup(topRowX);
@@ -121,6 +128,7 @@ public class TexasHoldEm extends JFrame{
         extraButtonGroupY.addComponent(match);
         extraButtonGroupY.addComponent(checkFold);
         extraButtonGroupY.addComponent(raise);
+        extraButtonGroupY.addComponent(aiAction);
 
         GroupLayout.SequentialGroup baseY = layout.createSequentialGroup();
         baseY.addGroup(topRowY);
@@ -149,39 +157,58 @@ public class TexasHoldEm extends JFrame{
                 dispose();
             }
         });
+        match.setEnabled(false);
+        waitForInput();
     }
     
     private void bet() {
         
-        if (bet > 0) {
+        if (raised) {
             bet = bet+Integer.parseInt(betAmount.getText());
+            raised = false;
             //random one of these
             //small chance for fold
             //big chance for paying
-            //a decent chance for raising
+            //a decent chance for raising raised = true;
         }
-        /*else {
-            
-        }*/
+        else {
+            //random one of these
+            //big chance for check
+            //small chance for raising raised = true;
+            raiseAmount = 10;
+            bet = bet+raiseAmount;
+            currentPot.setText(Integer.toString(bet));
+            raised = true;
+            aiAction.setText("Opponent raised: "+raiseAmount);
+        }
         
-        laskuri++;
+        match.setEnabled(raised);
         
-        if (laskuri == 1) {
+        if (raised) return;
+        
+        if (laskuri == 0) {
+            laskuri++;
             firstBets();
         }
-        else if (laskuri == 2) {
+        else if (laskuri == 1) {
+            laskuri++;
             secondBets();
+            System.out.println("laskuri on: "+laskuri);
+        }
+        else if (laskuri == 2) {
+            laskuri++;
+            thirdBets();
+            System.out.println("laskuri on: "+laskuri);
         }
         else if (laskuri == 3) {
-            thirdBets();
-        }
-        else if (laskuri == 4) {
+            laskuri++;
             match.setEnabled(false);
             checkFold.setEnabled(false);
             raise.setEnabled(false);
             lastBets();
             //dealPoints();
             laskuri = 0;
+            System.out.println("laskuri on: "+laskuri);
         }
     }
     
@@ -195,6 +222,9 @@ public class TexasHoldEm extends JFrame{
         card = deck.pop();
         pCard2.setText(card.toString());
         pCard2.setForeground(card.getColour());
+    }
+    
+    private void waitForInput() {
         
         match.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -205,7 +235,7 @@ public class TexasHoldEm extends JFrame{
         
         checkFold.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                //if (bet > 0) fold()
+                if (raised) resetCards();
                 bet();
             }
         });
@@ -214,6 +244,7 @@ public class TexasHoldEm extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 //new window that asks you how much you want to raise
                 bet = bet+Integer.parseInt(betAmount.getText());
+                raised = true;
                 bet();
             }
         });
@@ -327,6 +358,10 @@ public class TexasHoldEm extends JFrame{
         bet = 0;
         currentPot.setText("0");
         
+        laskuri = 0;
+        
+        raised = false;
+        
         shuffleDeck();
         
         Card card = deck.pop();
@@ -338,7 +373,7 @@ public class TexasHoldEm extends JFrame{
         pCard2.setForeground(card.getColour());
         
         kello.stop();
-        match.setEnabled(true);
+        match.setEnabled(raised);
         checkFold.setEnabled(true);
         raise.setEnabled(true);
     }
