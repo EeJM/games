@@ -19,6 +19,7 @@ public class LoginToRps extends JFrame {
     
     private JButton loginButton=new JButton("Login");
     private JButton quitButton=new JButton("Quit");
+    private JButton botPlayer=new JButton("Single player");
     
     private Repository repo=new Repository();
     
@@ -36,6 +37,7 @@ public class LoginToRps extends JFrame {
         
         GroupLayout.SequentialGroup extraButtonGroupX=layout.createSequentialGroup();
         extraButtonGroupX.addComponent(quitButton);
+        extraButtonGroupX.addComponent(botPlayer);
         
         GroupLayout.ParallelGroup baseX=layout.createParallelGroup();
         baseX.addGroup(sideBySideGroupX);
@@ -52,6 +54,7 @@ public class LoginToRps extends JFrame {
         
         GroupLayout.ParallelGroup extraButtonGroupY=layout.createParallelGroup();
         extraButtonGroupY.addComponent(quitButton);
+        extraButtonGroupY.addComponent(botPlayer);
         
         GroupLayout.SequentialGroup baseY=layout.createSequentialGroup();
         baseY.addGroup(sideBySideGroupY);
@@ -73,7 +76,8 @@ public class LoginToRps extends JFrame {
                 final String otherUser=userField.getText();
                 final int myPoints1 = myPoints;
                 final String myUser1 = myUser;
-                if (otherPoints > -1){
+                
+                if (otherPoints > -1 && (otherUser == null ? myUser != null : !otherUser.equals(myUser))){
                     new RPS(myPoints1, myUser1, otherPoints, otherUser).setVisible(true);
                     dispose();
                 }
@@ -81,6 +85,12 @@ public class LoginToRps extends JFrame {
                     String message = "Invalid username or password. Try again.";
                     JOptionPane.showMessageDialog(loginButton, message, "Login failed", JOptionPane.INFORMATION_MESSAGE);
                 }
+            }
+        });
+        
+        botPlayer.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                
             }
         });
         
