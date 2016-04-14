@@ -1,5 +1,6 @@
 package KPS;
 
+import Database.Repository;
 import Startmenu.Startmenu;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -32,6 +33,10 @@ public class RPS extends JFrame {
     private JTextField secondPoints = new JTextField("0");
     private JTextField bet = new JTextField("1");
     
+    private Repository repo=new Repository();
+    
+    private boolean lock1visible=true;
+    private boolean lock2visible=true;
     
     public RPS(final int myPoints,final String myUser, final int otherPoints, final String otherUser) {
         
@@ -43,13 +48,17 @@ public class RPS extends JFrame {
         firstList.setForeground(Color.GREEN);
         secondList.setForeground(Color.ORANGE);
         
+        
         points.setText(""+myPoints);
         
     GroupLayout layout = new GroupLayout(basePanel);
         basePanel.setLayout(layout);
+        
+        layout.setAutoCreateContainerGaps(true);
 
         GroupLayout.SequentialGroup upperSideBySideGroupX = layout.createSequentialGroup();
         upperSideBySideGroupX.addComponent(firstList,200,200,200);
+        upperSideBySideGroupX.addGap(10);
         upperSideBySideGroupX.addComponent(secondList);
 
         GroupLayout.SequentialGroup midSideBySideGroupX = layout.createSequentialGroup();
@@ -62,12 +71,14 @@ public class RPS extends JFrame {
         GroupLayout.SequentialGroup botSideBySideGroupX = layout.createSequentialGroup();
         botSideBySideGroupX.addComponent(betText);
         botSideBySideGroupX.addComponent(bet);
+        botSideBySideGroupX.addGap(10);
         botSideBySideGroupX.addComponent(playButton);
         botSideBySideGroupX.addComponent(menuButton);
         
         GroupLayout.SequentialGroup lowerBotSideBySideGroupX = layout.createSequentialGroup();
         lowerBotSideBySideGroupX.addComponent(pointsText);
         lowerBotSideBySideGroupX.addComponent(points);
+        lowerBotSideBySideGroupX.addGap(10);
         lowerBotSideBySideGroupX.addComponent(secondPointsText);
         lowerBotSideBySideGroupX.addComponent(secondPoints);
         
@@ -79,7 +90,7 @@ public class RPS extends JFrame {
 
         layout.setHorizontalGroup(baseX);
         
-        GroupLayout.ParallelGroup lowerRowY = layout.createParallelGroup();
+        GroupLayout.ParallelGroup lowerRowY = layout.createParallelGroup(BASELINE);
         lowerRowY.addComponent(pointsText);
         lowerRowY.addComponent(points,25,25,25);
         lowerRowY.addComponent(secondPointsText);
@@ -103,18 +114,18 @@ public class RPS extends JFrame {
 
         GroupLayout.SequentialGroup baseY = layout.createSequentialGroup();
         baseY.addGroup(topRowY);
-        baseY.addGap(5);
+        baseY.addGap(10);
         baseY.addGroup(midRowY);
-        baseY.addGap(5);
+        baseY.addGap(10);
         baseY.addGroup(botRowY);
-        baseY.addGap(5);
+        baseY.addGap(10);
         baseY.addGroup(lowerRowY);
 
         layout.setVerticalGroup(baseY);
         
         this.add(basePanel); 
         this.setTitle("RPS");
-        this.setSize(425,180);
+        this.pack();
         this.setVisible(true);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
@@ -122,13 +133,13 @@ public class RPS extends JFrame {
         
         points.setEditable(false);
         secondPoints.setEditable(false);
-        setResizable(false);//disables window resizing
+        setResizable(false);
         
-        firstList.setFont(getFont());
-        secondList.setFont(getFont());
+        firstList.setFont(new Font(Font.SERIF,Font.BOLD,18));
+        secondList.setFont(new Font(Font.SERIF,Font.BOLD,18));
         
-        firstName.setText(myUser+" Choise");
-        secondName.setText(otherUser+" Choise");
+        firstName.setText(myUser+"´s Choise");
+        secondName.setText(otherUser+"´s Choise");
         
         pointsText.setText(myUser+" Points:");
         secondPointsText.setText(otherUser+ " Points:");
@@ -139,22 +150,31 @@ public class RPS extends JFrame {
         
         menuButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                new Startmenu(myPoints, myUser).setVisible(true);
+                String strMyPoints = points.getText();
+                int intMyPoints = Integer.parseInt(strMyPoints);
+                new Startmenu(intMyPoints, myUser).setVisible(true);
                 dispose();
             }
         });
             
          lock1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                firstList.setFont(new Font(Font.SERIF,Font.BOLD,0));
-                firstList.setEnabled(false);
+                int koko=18;
+                if(lock1visible) koko=0; 
+                firstList.setFont(new Font(Font.SERIF,Font.BOLD,koko));
+                firstList.setEnabled(!lock1visible);
                 
+                lock1visible=!lock1visible;
            }
         });
                   lock2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                secondList.setFont(new Font(Font.SERIF,Font.BOLD,0));
-                secondList.setEnabled(false);
+                int koko=18;
+                if(lock2visible) koko=0;
+                secondList.setFont(new Font(Font.SERIF,Font.BOLD,koko));
+                secondList.setEnabled(!lock2visible);
+                
+                lock2visible=!lock2visible;
            }
         });
         
@@ -232,6 +252,16 @@ public class RPS extends JFrame {
         
         String strMoneyLeft1 = Integer.toString(intMoneyLeft1);
         String strMoneyLeft2 = Integer.toString(intMoneyLeft2);
+        
+        int success1=repo.updatePoints(strMoneyLeft1,myUser);
+        if (success1==1){
+            JOptionPane.showMessageDialog(playButton, "Error", "Something went wrong.", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        int success2=repo.updatePoints(strMoneyLeft2,otherUser);
+        if (success2==1){
+            JOptionPane.showMessageDialog(playButton, "Error", "Something went wrong.", JOptionPane.ERROR_MESSAGE);
+        }
         
         points.setText(strMoneyLeft1);
         secondPoints.setText(strMoneyLeft2);
