@@ -77,7 +77,7 @@ public class LoginToRps extends JFrame {
                 final int myPoints1 = myPoints;
                 final String myUser1 = myUser;
                 
-                if (otherPoints > -1 && (otherUser == null ? myUser != null : !otherUser.equals(myUser))){
+                if (otherPoints > -1 && !otherUser.equals(myUser)){
                     new RPS(myPoints1, myUser1, otherPoints, otherUser).setVisible(true);
                     dispose();
                 }
