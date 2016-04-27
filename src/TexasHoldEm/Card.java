@@ -50,6 +50,15 @@ public class Card {
         if (value==1) {
             return symbol+"A";
         }
+        if (value==13) {
+            return symbol+"K";
+        }
+        if (value==12) {
+            return symbol+"Q";
+        }
+        if (value==11) {
+            return symbol+"J";
+        }
         
         return symbol+value;
     }
