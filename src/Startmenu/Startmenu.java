@@ -3,6 +3,7 @@ package Startmenu;
 import Cointoss.Cointoss;
 import Cointoss.Login;
 import Cointoss.register;
+import KPS.LoginToRps;
 import KPS.RPS;
 import TexasHoldEm.TexasHoldEm;
 import java.awt.*;
@@ -97,7 +98,7 @@ public class Startmenu extends JFrame {
         
         RPS.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                new RPS(myPoints, myUser).setVisible(true);
+                new LoginToRps(myPoints, myUser).setVisible(true);
                 dispose();
             }
         });
