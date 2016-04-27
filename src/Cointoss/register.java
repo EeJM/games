@@ -15,6 +15,7 @@ public class register extends JFrame {
     private JPasswordField passField=new JPasswordField(10);
     
     private JButton registerButton=new JButton("Register");
+    private JButton backButton=new JButton("Back");
     
     private Repository repo=new Repository();
     
@@ -29,6 +30,7 @@ public class register extends JFrame {
         sideBySideGroupX.addComponent(passText);
         sideBySideGroupX.addComponent(passField,GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.PREFERRED_SIZE);
         sideBySideGroupX.addComponent(registerButton);
+        sideBySideGroupX.addComponent(backButton);
         
         GroupLayout.ParallelGroup baseX=layout.createParallelGroup();
         baseX.addGroup(sideBySideGroupX);
@@ -41,6 +43,7 @@ public class register extends JFrame {
         sideBySideGroupY.addComponent(passText);
         sideBySideGroupY.addComponent(passField);
         sideBySideGroupY.addComponent(registerButton);
+        sideBySideGroupY.addComponent(backButton);
         
         GroupLayout.SequentialGroup baseY=layout.createSequentialGroup();
         baseY.addGroup(sideBySideGroupY);
@@ -65,6 +68,13 @@ public class register extends JFrame {
                     String message = "Something went wrong.";
                     JOptionPane.showMessageDialog(registerButton, message, "Registering failed", JOptionPane.INFORMATION_MESSAGE);
                 }
+            }
+        });
+        
+        backButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                new Login().setVisible(true);
+                dispose();
             }
         });
         
