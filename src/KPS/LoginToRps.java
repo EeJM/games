@@ -1,9 +1,6 @@
 package KPS;
 
-import Cointoss.register;
-import Cointoss.DelUser;
 import Database.Repository;
-import Startmenu.Startmenu;
 import java.awt.event.*;
 import javax.swing.*;
 
@@ -91,6 +88,11 @@ public class LoginToRps extends JFrame {
         botPlayer.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 
+                final int myPoints1 = myPoints;
+                final String myUser1 = myUser;
+                
+                new SinglePlayerRPS(myPoints1, myUser1).setVisible(true);
+                dispose();
             }
         });
         
