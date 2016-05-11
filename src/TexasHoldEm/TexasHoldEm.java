@@ -48,6 +48,10 @@ public class TexasHoldEm extends JFrame {
     private int raiseAmount;
 
     private Stack<Card> deck = new Stack<>();
+    
+    private Hand playerHand = new Hand();
+    
+    private Hand botHand = new Hand();
 
     private Timer kello = new Timer(3000,
             new ActionListener() {
@@ -238,11 +242,16 @@ public class TexasHoldEm extends JFrame {
     private void dealPlayerCards() {
 
         Card card = deck.pop();
+        
+        playerHand.addCard(card);
 
         pCard1.setText(card.toString());
         pCard1.setForeground(card.getColour());
 
         card = deck.pop();
+        
+        playerHand.addCard(card);
+        
         pCard2.setText(card.toString());
         pCard2.setForeground(card.getColour());
     }
@@ -267,15 +276,26 @@ public class TexasHoldEm extends JFrame {
         currentPot.setText(Integer.toString(bet));
 
         Card card = deck.pop();
+        
+        playerHand.addCard(card);
+        botHand.addCard(card);
 
         table1.setText(card.toString());
         table1.setForeground(card.getColour());
 
         card = deck.pop();
+        
+        playerHand.addCard(card);
+        botHand.addCard(card);
+        
         table2.setText(card.toString());
         table2.setForeground(card.getColour());
 
         card = deck.pop();
+        
+        playerHand.addCard(card);
+        botHand.addCard(card);
+        
         table3.setText(card.toString());
         table3.setForeground(card.getColour());
     }
@@ -285,6 +305,10 @@ public class TexasHoldEm extends JFrame {
         currentPot.setText(Integer.toString(bet));
         
         Card card = deck.pop();
+        
+        playerHand.addCard(card);
+        botHand.addCard(card);
+        
         table4.setText(card.toString());
         table4.setForeground(card.getColour());
     }
@@ -294,6 +318,10 @@ public class TexasHoldEm extends JFrame {
         currentPot.setText(Integer.toString(bet));
         
         Card card = deck.pop();
+        
+        playerHand.addCard(card);
+        botHand.addCard(card);
+        
         table5.setText(card.toString());
         table5.setForeground(card.getColour());
     }
@@ -302,12 +330,21 @@ public class TexasHoldEm extends JFrame {
         currentPot.setText(Integer.toString(bet));
 
         Card card = deck.pop();
+        
+        botHand.addCard(card);
+        
         aiCard1.setText(card.toString());
         aiCard1.setForeground(card.getColour());
 
         card = deck.pop();
+        
+        botHand.addCard(card);
+        
         aiCard2.setText(card.toString());
         aiCard2.setForeground(card.getColour());
+        
+        System.out.println(playerHand);
+        System.out.println(botHand);
 
         kello.start();
     }
@@ -329,6 +366,9 @@ public class TexasHoldEm extends JFrame {
         table4.setForeground(Color.black);
         table5.setText("hidden");
         table5.setForeground(Color.black);
+        
+        playerHand.reset();
+        botHand.reset();
 
         bet = 0;
         currentPot.setText("0");
@@ -340,10 +380,16 @@ public class TexasHoldEm extends JFrame {
         shuffleDeck();
 
         Card card = deck.pop();
+        
+        playerHand.addCard(card);
+        
         pCard1.setText(card.toString());
         pCard1.setForeground(card.getColour());
 
         card = deck.pop();
+        
+        playerHand.addCard(card);
+        
         pCard2.setText(card.toString());
         pCard2.setForeground(card.getColour());
 
