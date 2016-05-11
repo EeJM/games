@@ -51,7 +51,7 @@ public class RPS extends JFrame {
         
         points.setText(""+myPoints);
         
-    GroupLayout layout = new GroupLayout(basePanel);
+        GroupLayout layout = new GroupLayout(basePanel);
         basePanel.setLayout(layout);
         
         layout.setAutoCreateContainerGaps(true);
@@ -245,7 +245,7 @@ public class RPS extends JFrame {
             intMoneyLeft2 = intMoneyLeft2 + intBetAmount * 2;
         }
         else{
-            JOptionPane.showMessageDialog(playButton, "Something went wrong..!", "Oops.", JOptionPane.INFORMATION_MESSAGE);
+            Error("Both players must choose an element.");
             intMoneyLeft1 = intMoneyLeft1 + intBetAmount;
             intMoneyLeft2 = intMoneyLeft2 + intBetAmount;
         }
@@ -255,32 +255,34 @@ public class RPS extends JFrame {
         
         int success1=repo.updatePoints(strMoneyLeft1,myUser);
         if (success1==1){
-            JOptionPane.showMessageDialog(playButton, "Error", "Something went wrong.", JOptionPane.ERROR_MESSAGE);
+            Error("Something went wrong.");
         }
         
         int success2=repo.updatePoints(strMoneyLeft2,otherUser);
         if (success2==1){
-            JOptionPane.showMessageDialog(playButton, "Error", "Something went wrong.", JOptionPane.ERROR_MESSAGE);
+            Error("Something went wrong.");
         }
         
         points.setText(strMoneyLeft1);
         secondPoints.setText(strMoneyLeft2);
         }
         else {
-            JOptionPane.showMessageDialog(playButton, "Invalid bet", "Oops.", JOptionPane.INFORMATION_MESSAGE);
+            Error("Invalid bet.");
         }
         
-        
     }
+    private void Error(String errorMessage) {
+        JOptionPane.showMessageDialog(this, errorMessage,"Error",JOptionPane.ERROR_MESSAGE);
+        }
     
-    public static void main(String[] args) {
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                new RPS(1000,"Testi", 2000, "testi2").setVisible(true);
-            }
-        });
-   
-        
-    }
+//    public static void main(String[] args) {
+//        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+//            public void run() {
+//                new RPS(1000,"Testi", 2000, "testi2").setVisible(true);
+//            }
+//        });
+//   
+//        
+//    }
             
 }
