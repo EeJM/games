@@ -3,6 +3,8 @@ package Startmenu;
 import Cointoss.Cointoss;
 import Cointoss.Login;
 import Cointoss.register;
+import Database.HighPoints;
+import Database.Repository;
 import KPS.LoginToRps;
 import KPS.RPS;
 import TexasHoldEm.TexasHoldEm;
@@ -26,6 +28,8 @@ public class Startmenu extends JFrame {
 
     private JButton Highscores = new JButton("Highscores");
     private JButton Quit = new JButton("Quit");
+    
+    private Repository repo = new Repository();
 
     public Startmenu(final int myPoints, final String myUser) {
         
@@ -115,6 +119,24 @@ public class Startmenu extends JFrame {
                 dispose();
             }
         });
+        
+        Highscores.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                haeHighScoret();
+            }
+        });
+    }
+    
+    private void haeHighScoret() {
+        JTextArea scores=new JTextArea(10,40);
+        JScrollPane vieritys=new JScrollPane(scores);
+        for(HighPoints points:repo.getHighestPoints()) {
+            scores.append(points+"\n");
+        }
+        JOptionPane.showMessageDialog(this, vieritys, 
+                "Highscores", JOptionPane.INFORMATION_MESSAGE);
     }
     
     public static void main(String[] args) {

@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Stack;
 
 
-public class Card {
+public class Card implements Comparable<Card> {
     
     private int value;
     private String suit;
@@ -95,6 +95,12 @@ public class Card {
 //        System.out.println(kortti.getColour()+","+kortti);
         
         
+    }
+
+    @Override
+    public int compareTo(Card o) {
+        Integer value=this.value;
+        return value.compareTo(o.value);
     }
     
 }
