@@ -31,14 +31,14 @@ public class Cointoss extends JFrame {
 
     private JRadioButton allIn = new JRadioButton("All in!");
 
-    private Repository repo=new Repository();
-    
+    private Repository repo = new Repository();
+
     public Cointoss(int myPoints, final String myUser) {
-        
-        coinSide.setFont(new Font(Font.SERIF,Font.BOLD,50));
-        
-        moneyLeft.setText(""+myPoints);
-        
+
+        coinSide.setFont(new Font(Font.SERIF, Font.BOLD, 50));
+
+        moneyLeft.setText("" + myPoints);
+
         GroupLayout layout = new GroupLayout(basePanel);
         basePanel.setLayout(layout);
 
@@ -94,7 +94,7 @@ public class Cointoss extends JFrame {
         this.setLocationRelativeTo(null);
         this.setSize(500, 300);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        
+
         this.getRootPane().setDefaultButton(playButton);
 
         moneyLeft.setEditable(false);
@@ -112,75 +112,83 @@ public class Cointoss extends JFrame {
 
         playButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                try{
-                int intMoneyLeft = Integer.parseInt(moneyLeft.getText());
-                int intBetAmount = Integer.parseInt(betAmount.getText());
-                
-                //This happens if the bet is fine to do
-                if (intBetAmount <= intMoneyLeft && intBetAmount>0) {
-                    
-                    //Created some temporary variables here to subtract from your available money
-                    int updatedMoney = intMoneyLeft - intBetAmount;
-                    String stringUpdatedMoney = Integer.toString(updatedMoney);
+                try {
+                    int intMoneyLeft = Integer.parseInt(moneyLeft.getText());
+                    int intBetAmount = Integer.parseInt(betAmount.getText());
 
-                    moneyLeft.setText(stringUpdatedMoney);
+                    //This happens if the bet is fine to do
+                    if (intBetAmount <= intMoneyLeft && intBetAmount > 0) {
 
-                    flipTheCoin();
-                    if (finalCoin == coinList.getSelectedItem()) {
-                        int winAmount = Integer.parseInt(betAmount.getText()) * 2;
-                        String message = "You won " + winAmount + "!";
-                        String title = "Winner!";
-                        JOptionPane.showMessageDialog(playButton, message, title, JOptionPane.INFORMATION_MESSAGE);
+                        //Created some temporary variables here to subtract from your available money
+                        int updatedMoney = intMoneyLeft - intBetAmount;
+                        String stringUpdatedMoney = Integer.toString(updatedMoney);
 
-                        int newMoneyLeft = Integer.parseInt(moneyLeft.getText()) + winAmount;//sick skills 
-                        String stringMoneyLeft = Integer.toString(newMoneyLeft);
-                        moneyLeft.setText(stringMoneyLeft);
-                    } else {
-                        int lostAmount = Integer.parseInt(betAmount.getText());
-                        String message = "You lost " + lostAmount + "!";
-                        String title = "Loser!";
-                        JOptionPane.showMessageDialog(playButton, message, title, JOptionPane.INFORMATION_MESSAGE);
+                        moneyLeft.setText(stringUpdatedMoney);
+
+                        flipTheCoin();
+                        if (finalCoin == coinList.getSelectedItem()) {
+                            int winAmount = Integer.parseInt(betAmount.getText()) * 2;
+                            String message = "You won " + winAmount + "!";
+                            String title = "Winner!";
+
+                            int newMoneyLeft = Integer.parseInt(moneyLeft.getText()) + winAmount;//sick skills 
+                            String stringMoneyLeft = Integer.toString(newMoneyLeft);
+                            moneyLeft.setText(stringMoneyLeft);
+
+                            String pointsToDB = moneyLeft.getText();
+                            //This takes the user from the login field specified in the first window.
+                            int success = repo.updatePoints(pointsToDB, myUser);
+                            if (success == 1) {
+                                JOptionPane.showMessageDialog(playButton, "Error", "Something went wrong.", JOptionPane.ERROR_MESSAGE);
+                            }
+
+                            JOptionPane.showMessageDialog(playButton, message, title, JOptionPane.INFORMATION_MESSAGE);
+
+                        } else {
+                            int lostAmount = Integer.parseInt(betAmount.getText());
+                            String message = "You lost " + lostAmount + "!";
+                            String title = "Loser!";
+
+                            String pointsToDB = moneyLeft.getText();
+                            //This takes the user from the login field specified in the first window.
+                            int success = repo.updatePoints(pointsToDB, myUser);
+                            if (success == 1) {
+                                JOptionPane.showMessageDialog(playButton, "Error", "Something went wrong.", JOptionPane.ERROR_MESSAGE);
+                            }
+
+                            JOptionPane.showMessageDialog(playButton, message, title, JOptionPane.INFORMATION_MESSAGE);
+                        }
+
+                    } //This happens if you don't have any money left and you try to play
+                    else if (intMoneyLeft == 0) {
+                        String message = "Sorry you are out of funds.";
+                        JOptionPane.showMessageDialog(playButton, message, "Sorry :,(", JOptionPane.INFORMATION_MESSAGE);
+                    } //This happens if your trying to bet 0
+                    else if (intBetAmount == 0) {
+                        String message = "You gotta at least bet something!";
+                        JOptionPane.showMessageDialog(playButton, message, "Bet more", JOptionPane.INFORMATION_MESSAGE);
+                    } //This happens if you bet more than you have
+                    else {
+                        String message = "Don't bet your house on it!";
+                        JOptionPane.showMessageDialog(playButton, message, "Bank account error...", JOptionPane.INFORMATION_MESSAGE);
                     }
-                    String pointsToDB= moneyLeft.getText();
-                    //This takes the user from the login field specified in the first window.
-                    int success=repo.updatePoints(pointsToDB,myUser);
-                    if (success==1){
-                        JOptionPane.showMessageDialog(playButton, "Error", "Something went wrong.", JOptionPane.ERROR_MESSAGE);
-                    }
-                }
-                //This happens if you don't have any money left and you try to play
-                else if (intMoneyLeft==0) {
-                    String message="Sorry you are out of funds.";
-                    JOptionPane.showMessageDialog(playButton, message, "Sorry :,(", JOptionPane.INFORMATION_MESSAGE);
-                }
-                //This happens if your trying to bet 0
-                else if (intBetAmount==0){
-                    String message="You gotta at least bet something!";
-                    JOptionPane.showMessageDialog(playButton, message, "Bet more", JOptionPane.INFORMATION_MESSAGE);
-                }
-                //This happens if you bet more than you have
-                else {
-                    String message="Don't bet your house on it!";
-                    JOptionPane.showMessageDialog(playButton, message, "Bank account error...", JOptionPane.INFORMATION_MESSAGE);
-                }
-                allIn.setSelected(false);
-                betAmount.setEditable(true);
-                }
-                catch(NumberFormatException error) {
-                    String message="Please type numbers only...";
-                    JOptionPane.showMessageDialog(playButton, message,"Error in betting!",JOptionPane.INFORMATION_MESSAGE);
+                    allIn.setSelected(false);
+                    betAmount.setEditable(true);
+                } catch (NumberFormatException error) {
+                    String message = "Please type numbers only...";
+                    JOptionPane.showMessageDialog(playButton, message, "Error in betting!", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         });
-        
+
         mainMenuButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                int actualMoneyLeft = Integer.parseInt(moneyLeft.getText()); 
+                int actualMoneyLeft = Integer.parseInt(moneyLeft.getText());
                 new Startmenu(actualMoneyLeft, myUser).setVisible(true);
                 dispose();
             }
         });
-        
+
     }//Constructor ends here
 
     String finalCoin;

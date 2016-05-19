@@ -20,7 +20,7 @@ public class LoginToRps extends JFrame {
     
     private Repository repo=new Repository();
     
-    public LoginToRps(int myPoints, String myUser) {
+    public LoginToRps(final int myPoints, final String myUser) {
         
         GroupLayout layout=new GroupLayout(basePanel);
         basePanel.setLayout(layout);
